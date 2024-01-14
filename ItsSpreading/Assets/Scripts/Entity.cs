@@ -1,18 +1,39 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    [SerializeField] private GameObject gameHandlerObj;
+
+    [SerializeField] private Sprite _sprite;
+    
+    
+    private float _maxRightPosition = 10000f; // set to absurd amount so it never collides with anything if not solid
+    
+    [SerializeField] private float _maxLeftPos;
+    
+    
+    
+    public float movementSpeed = 2f;
+    public bool isSolid = true;
+
+    public void Start()
     {
-        // This is a test for github!
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MoveThis(float direction)
     {
-        
+        float nextPos = gameObject.transform.position.x + direction;
+        if ( nextPos >= _maxRightPosition || nextPos < _maxLeftPos ) return;
+        gameObject.transform.position += new Vector3(direction,0,0);
     }
+
+    public void setMaxRightPos(float newMaxPos)
+    {
+        if(isSolid) _maxRightPosition = newMaxPos;
+    }
+
 }
