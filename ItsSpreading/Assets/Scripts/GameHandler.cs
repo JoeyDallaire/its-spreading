@@ -107,6 +107,7 @@ public class GameHandler: MonoBehaviour
     {
         LoadNewRoom(1);
         currentStateID++;
+        Debug.Log("Current level : " + currentStateID);
     }
 
     private void InteractWithObj()

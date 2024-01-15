@@ -36,14 +36,18 @@ public class PlayerController : Entity
             if (Input.GetKey(KeyCode.D))
             {
                 MoveThis(movementSpeed);
+                _animator.SetBool("isWalking",true);
                 setCameraPos();
             }
                     
-            if (Input.GetKey(KeyCode.A))
+            else if (Input.GetKey(KeyCode.A))
             {
                 MoveThis(movementSpeed * -1);
+                _animator.SetBool("isWalking",true);
                 setCameraPos();
             }
+            
+            else _animator.SetBool("isWalking", false);
         }
         // Interact Input
         if (Input.GetKeyDown(KeyCode.Space))

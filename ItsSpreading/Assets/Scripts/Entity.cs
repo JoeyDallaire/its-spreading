@@ -7,12 +7,10 @@ public class Entity : MonoBehaviour
 {
 
     [SerializeField] private GameObject gameHandlerObj;
-    
+    [SerializeField] public Animator _animator;
     
     private float _maxRightPos;
     private float _maxLeftPos;
-    
-    
     
     public float movementSpeed = 2f;
     public bool isSolid = true;
@@ -27,6 +25,7 @@ public class Entity : MonoBehaviour
         float nextPos = gameObject.transform.position.x + direction;
         if ( nextPos >= _maxRightPos || nextPos < _maxLeftPos ) return;
         gameObject.transform.position += new Vector3(direction,0,0);
+        gameObject.GetComponent<SpriteRenderer>().flipX = (direction < 0f);
     }
 
     public void SetMaxRightPos(float newMaxPos)
@@ -38,5 +37,6 @@ public class Entity : MonoBehaviour
     {
         if(isSolid) _maxLeftPos = newMaxPos;
     }
+
 
 }
