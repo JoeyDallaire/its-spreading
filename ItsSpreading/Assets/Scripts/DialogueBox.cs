@@ -1,16 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 public class DialogueBox : MonoBehaviour
 {
-    private const int MAX_CHAR_LENGHT = 100;
+    [SerializeField] private GameObject imageObj;
+    [SerializeField] private GameObject textObj;
+    [SerializeField] private GameObject pannel;
     
-    private string text;
-    
-    
-    public DialogueBox(string text)
+    private const int MAX_CHAR_LENGHT = 120;
+
+
+    public void callDialogueBox(string text, Sprite faceImg)
     {
-        this.text = text;
+        pannel.SetActive(true);
+        imageObj.GetComponent<Image>().sprite = faceImg;
+        textObj.GetComponent<TextMeshProUGUI>().text = text;
+        
     }
+
+    public void DeleteCurrentDialogueBox()
+    {
+        pannel.SetActive(false);
+    }
+    
 }

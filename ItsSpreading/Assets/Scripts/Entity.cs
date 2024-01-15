@@ -7,8 +7,6 @@ public class Entity : MonoBehaviour
 {
 
     [SerializeField] private GameObject gameHandlerObj;
-
-    [SerializeField] private Sprite _sprite;
     
     
     private float _maxRightPosition = 10000f; // set to absurd amount so it never collides with anything if not solid

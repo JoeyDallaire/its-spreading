@@ -5,7 +5,11 @@ using UnityEngine;
 public class PlayerController : Entity
 {
     [SerializeField] private GameObject cameraObj;
+    [SerializeField] private GameObject handlerObj;
     private bool facingRight = true;
+    public bool canMove = true;
+
+    [SerializeField] private Sprite test_face;
     void Start()
     {
         
@@ -25,17 +29,31 @@ public class PlayerController : Entity
     
     private void UpdateInputs()
     {
-        if (Input.GetKey(KeyCode.D))
+        // Player movement
+        if (canMove)
         {
-            MoveThis(movementSpeed);
-            setCameraPos();
+            if (Input.GetKey(KeyCode.D))
+            {
+                MoveThis(movementSpeed);
+                setCameraPos();
+            }
+                    
+            if (Input.GetKey(KeyCode.A))
+            {
+                MoveThis(movementSpeed * -1);
+                setCameraPos();
+            }
+        }
+        // Interact Input
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            handlerObj.GetComponent<GameHandler>().InteractButtonPress();
         }
         
-        if (Input.GetKey(KeyCode.A))
+        // Testing 
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            MoveThis(movementSpeed * -1);
-            setCameraPos();
+            handlerObj.GetComponent<GameHandler>().CallDialogue("pp pp pp pp pp pp pp pp pp", test_face);
         }
-        
     }
 }
