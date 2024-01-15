@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameHandler: MonoBehaviour
 {
-    private const float MAX_DIST_FROM_INTERACTABLE = 2f;
+    private const float MAX_DIST_FROM_INTERACTABLE = 1f;
     private const float PLAYER_Y_POSITION = -1.25f;
     private const float PLAYER_Z_POSITION = 0f;
     
@@ -31,7 +31,7 @@ public class GameHandler: MonoBehaviour
     
     public void Start()
     {
-        SetMaxPos(currentRoomID);
+        LoadNewRoom(currentRoomID);
     }
 
     public void Update()
@@ -74,6 +74,10 @@ public class GameHandler: MonoBehaviour
     public void InteractButtonPress()
     {
         if(isInDialogue) DeleteCurrentDialogue();
+        else if (proximityObj != null)
+        {
+            InteractWithObj();
+        }
     }
 
     public void CallDialogue(string text, Sprite faceImg)
@@ -96,5 +100,25 @@ public class GameHandler: MonoBehaviour
             PLAYER_Y_POSITION, PLAYER_Z_POSITION);
         SetMaxPos(newRoomID);
         playerObj.GetComponent<PlayerController>().setCameraPos();
+        currentRoomID = newRoomID;
+    }
+
+    private void LoadNextLevel()
+    {
+        LoadNewRoom(1);
+        currentStateID++;
+    }
+
+    private void InteractWithObj()
+    {
+        switch (proximityObj.GetComponent<Interactable>().GetActionID())
+        {
+            case 1: // Open Door
+            {
+                if (currentRoomID==3) LoadNextLevel();
+                else LoadNewRoom(currentRoomID+1);
+            }
+                break;
+        }
     }
 }
