@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : Entity
 {
+    
     [SerializeField] private GameObject cameraObj;
     [SerializeField] private GameObject handlerObj;
     private bool facingRight = true;
@@ -21,7 +22,7 @@ public class PlayerController : Entity
         UpdateInputs();
     }
 
-    private void setCameraPos()
+    public void setCameraPos()
     {
         cameraObj.GetComponent<CameraControl>().UpdateCamera(transform
             .position);
@@ -54,6 +55,21 @@ public class PlayerController : Entity
         if (Input.GetKeyDown(KeyCode.E))
         {
             handlerObj.GetComponent<GameHandler>().CallDialogue("pp pp pp pp pp pp pp pp pp", test_face);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            handlerObj.GetComponent<GameHandler>().LoadNewRoom(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            handlerObj.GetComponent<GameHandler>().LoadNewRoom(2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            handlerObj.GetComponent<GameHandler>().LoadNewRoom(3);
         }
     }
 }

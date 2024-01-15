@@ -6,25 +6,32 @@ using UnityEngine;
 public class GameHandler: MonoBehaviour
 {
     private const float MAX_DIST_FROM_INTERACTABLE = 2f;
+    private const float PLAYER_Y_POSITION = -1.25f;
+    private const float PLAYER_Z_POSITION = 0f;
     
+    //[SerializeField] private float initialMaxRightPos;
+    //private float _maxRightPosition;
     
-    [SerializeField] private float initialMaxRightPos;
-    
-    private float _maxRightPosition = 20f;
     [SerializeField] private List<Entity> entities = new List<Entity>();
 
     [SerializeField] private GameObject dialogueBoxObj;
     [SerializeField] private GameObject playerObj;
-
+    [SerializeField] private GameObject cameraObj;
+    
     private GameObject proximityObj;
     [SerializeField] private List<GameObject> interactableObjs = new List<GameObject>();
+
+    // Story/Room/State IDs; 0 is used for debugging or for start screen.
+    public int currentRoomID = 1;
+    public int currentStateID = 1;
+    public int currentStoryStateID = 1;
     
     private bool isInDialogue = true;
     
     
     public void Start()
     {
-        SetMaxRightPos(initialMaxRightPos);
+        SetMaxPos(currentRoomID);
     }
 
     public void Update()
@@ -32,17 +39,17 @@ public class GameHandler: MonoBehaviour
         UpdateProximityObj();
     }
 
-    public float GetMaxRightPos()
+    public void SetMaxPos(int roomID)
     {
-        return _maxRightPosition;
-    }
-
-    public void SetMaxRightPos(float newObstaclePos)
-    {
+        float newMaxLeftPos = gameObject.GetComponent<TagHandler>().GetMaxPos(true, roomID);
+        float newMaxRightPos = gameObject.GetComponent<TagHandler>().GetMaxPos(false, roomID);
         foreach (var entity in  entities)
         {
-            entity.setMaxRightPos(newObstaclePos);
+            entity.SetMaxRightPos(newMaxRightPos);
+            entity.SetMaxLeftPos(newMaxLeftPos);
         }
+        
+        cameraObj.GetComponent<CameraControl>().UpdateMaxPos(newMaxLeftPos + 9.5f, newMaxRightPos-9.5f);
     }
 
     private void UpdateProximityObj()
@@ -81,5 +88,13 @@ public class GameHandler: MonoBehaviour
         dialogueBoxObj.GetComponent<DialogueBox>().DeleteCurrentDialogueBox();
         isInDialogue = false;
         playerObj.GetComponent<PlayerController>().canMove = true;
+    }
+
+    public void LoadNewRoom(int newRoomID)
+    {
+        playerObj.transform.position = new Vector3(gameObject.GetComponent<TagHandler>().GetPlayerPosNewRoom(newRoomID),
+            PLAYER_Y_POSITION, PLAYER_Z_POSITION);
+        SetMaxPos(newRoomID);
+        playerObj.GetComponent<PlayerController>().setCameraPos();
     }
 }

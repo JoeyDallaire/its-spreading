@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
-    [SerializeField] private float minPosition;
-    [SerializeField] private float maxPosition;
+    private float minPosition;
+    private float maxPosition;
 
     public void Update()
     {
@@ -16,6 +16,12 @@ public class CameraControl : MonoBehaviour
     {
         transform.position = new Vector3(Mathf.Clamp(playerPos.x, minPosition, maxPosition), transform.position.y,
             transform.position.z);
+    }
+
+    public void UpdateMaxPos(float left, float right)
+    {
+        minPosition = left;
+        maxPosition = right;
     }
 
 }

@@ -9,9 +9,8 @@ public class Entity : MonoBehaviour
     [SerializeField] private GameObject gameHandlerObj;
     
     
-    private float _maxRightPosition = 10000f; // set to absurd amount so it never collides with anything if not solid
-    
-    [SerializeField] private float _maxLeftPos;
+    private float _maxRightPos;
+    private float _maxLeftPos;
     
     
     
@@ -20,18 +19,24 @@ public class Entity : MonoBehaviour
 
     public void Start()
     {
+        
     }
 
     public void MoveThis(float direction)
     {
         float nextPos = gameObject.transform.position.x + direction;
-        if ( nextPos >= _maxRightPosition || nextPos < _maxLeftPos ) return;
+        if ( nextPos >= _maxRightPos || nextPos < _maxLeftPos ) return;
         gameObject.transform.position += new Vector3(direction,0,0);
     }
 
-    public void setMaxRightPos(float newMaxPos)
+    public void SetMaxRightPos(float newMaxPos)
     {
-        if(isSolid) _maxRightPosition = newMaxPos;
+        if(isSolid) _maxRightPos = newMaxPos;
+    }
+    
+    public void SetMaxLeftPos(float newMaxPos)
+    {
+        if(isSolid) _maxLeftPos = newMaxPos;
     }
 
 }
