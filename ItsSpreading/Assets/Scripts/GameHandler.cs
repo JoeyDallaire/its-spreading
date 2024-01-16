@@ -8,17 +8,22 @@ public class GameHandler: MonoBehaviour
     private const float MAX_DIST_FROM_INTERACTABLE = 1f;
     private const float PLAYER_Y_POSITION = -1.25f;
     private const float PLAYER_Z_POSITION = 0f;
+    private const float DOG_Y_POSITION = -0.5f;
+    private const float DOG_Z_POSITION = 2f;
     
     //[SerializeField] private float initialMaxRightPos;
     //private float _maxRightPosition;
     
-    [SerializeField] private List<Entity> entities = new List<Entity>();
+    
 
     [SerializeField] private GameObject dialogueBoxObj;
     [SerializeField] private GameObject playerObj;
     [SerializeField] private GameObject cameraObj;
-    
+    [SerializeField] private GameObject dogObj;
     private GameObject proximityObj;
+    
+    
+    [SerializeField] private List<Entity> entities = new List<Entity>();
     [SerializeField] private List<GameObject> interactableObjs = new List<GameObject>();
 
     // Story/Room/State IDs; 0 is used for debugging or for start screen.
@@ -26,8 +31,10 @@ public class GameHandler: MonoBehaviour
     public int currentStateID = 1;
     public int currentStoryStateID = 1;
     
-    private bool isInDialogue = true;
     
+    // Player related
+    private bool isInDialogue = true;
+    private int heldObject = 0;
     
     public void Start()
     {
@@ -59,7 +66,8 @@ public class GameHandler: MonoBehaviour
             
             
             if ((transform.position.x - obj.transform.position.x) <= MAX_DIST_FROM_INTERACTABLE &&
-                (transform.position.x - obj.transform.position.x) >= -MAX_DIST_FROM_INTERACTABLE)
+                (transform.position.x - obj.transform.position.x) >= -MAX_DIST_FROM_INTERACTABLE &&
+                obj.GetComponent<Interactable>().canInteract)
             {
                 proximityObj = obj;
                 return;
@@ -96,8 +104,9 @@ public class GameHandler: MonoBehaviour
 
     public void LoadNewRoom(int newRoomID)
     {
-        playerObj.transform.position = new Vector3(gameObject.GetComponent<TagHandler>().GetPlayerPosNewRoom(newRoomID),
-            PLAYER_Y_POSITION, PLAYER_Z_POSITION);
+        float newXpos = gameObject.GetComponent<TagHandler>().GetPlayerPosNewRoom(newRoomID);
+        playerObj.transform.position = new Vector3(newXpos,PLAYER_Y_POSITION, PLAYER_Z_POSITION);
+        dogObj.GetComponent<Dog>().LoadingInNewRoom(new Vector3(newXpos,DOG_Y_POSITION,DOG_Z_POSITION));
         SetMaxPos(newRoomID);
         playerObj.GetComponent<PlayerController>().setCameraPos();
         currentRoomID = newRoomID;
@@ -112,14 +121,39 @@ public class GameHandler: MonoBehaviour
 
     private void InteractWithObj()
     {
-        switch (proximityObj.GetComponent<Interactable>().GetActionID())
+        int checkObjectNeeded = proximityObj.GetComponent<Interactable>().GetObjectNeededID();
+
+        if (checkObjectNeeded == 0 || checkObjectNeeded == heldObject)
         {
-            case 1: // Open Door
+            switch (proximityObj.GetComponent<Interactable>().GetActionID())
             {
-                if (currentRoomID==3) LoadNextLevel();
-                else LoadNewRoom(currentRoomID+1);
+                case 1: // Open Door
+                {
+                    if (currentRoomID == 3) LoadNextLevel();
+                    else LoadNewRoom(currentRoomID + 1);
+                }
+                    break;
+                case 2: // Take Object
+                {
+                    if (heldObject == 0)
+                    {
+                        heldObject = proximityObj.GetComponent<Interactable>().GetContextID();
+                        proximityObj.GetComponent<Interactable>().DeleteThisObj();
+                        Debug.Log("Now holding object ID : " + heldObject);
+                    }
+
+                    break;
+                }
+                case 3: // Use box on stacks of boxes
+                {
+                    if (heldObject == 1)
+                    {
+                        heldObject = 0;
+                        proximityObj.GetComponent<StackOfBoxes>().UseObjectOnIt();
+                    }
+                    break;
+                }
             }
-                break;
         }
     }
 }
