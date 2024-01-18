@@ -20,6 +20,7 @@ public class GameHandler: MonoBehaviour
     [SerializeField] private GameObject playerObj;
     [SerializeField] private GameObject cameraObj;
     [SerializeField] private GameObject dogObj;
+    [SerializeField] private GameObject nextLevelScreenObj;
     private GameObject proximityObj;
     
     
@@ -33,12 +34,13 @@ public class GameHandler: MonoBehaviour
     
     
     // Player related
-    private bool isInDialogue = true;
+    private bool isInDialogue = false;
+    private bool isInNextLevelScreen = false;
     private int heldObject = 0;
     
     public void Start()
     {
-        LoadNewRoom(currentRoomID);
+        LoadNewRoom(currentRoomID, true);
     }
 
     public void Update()
@@ -81,10 +83,23 @@ public class GameHandler: MonoBehaviour
 
     public void InteractButtonPress()
     {
-        if(isInDialogue) DeleteCurrentDialogue();
-        else if (proximityObj != null)
+        if (isInDialogue)
+        {
+            DeleteCurrentDialogue();
+            return;
+        }
+        
+        if (isInNextLevelScreen)
+        {
+            nextLevelScreenObj.GetComponent<NewLevelScreen>().DeleteScreen();
+            isInNextLevelScreen = false;
+            playerObj.GetComponent<PlayerController>().canMove = true;
+            return;
+        }
+        if (proximityObj != null)
         {
             InteractWithObj();
+            return;
         }
     }
 
@@ -102,9 +117,11 @@ public class GameHandler: MonoBehaviour
         playerObj.GetComponent<PlayerController>().canMove = true;
     }
 
-    public void LoadNewRoom(int newRoomID)
+    public void LoadNewRoom(int newRoomID, bool comingLeft)
     {
-        float newXpos = gameObject.GetComponent<TagHandler>().GetPlayerPosNewRoom(newRoomID);
+        float newXpos = gameObject.GetComponent<TagHandler>().GetPlayerPosNewRoom(newRoomID, comingLeft);
+        
+        
         playerObj.transform.position = new Vector3(newXpos,PLAYER_Y_POSITION, PLAYER_Z_POSITION);
         dogObj.GetComponent<Dog>().LoadingInNewRoom(new Vector3(newXpos,DOG_Y_POSITION,DOG_Z_POSITION));
         SetMaxPos(newRoomID);
@@ -114,9 +131,14 @@ public class GameHandler: MonoBehaviour
 
     private void LoadNextLevel()
     {
-        LoadNewRoom(1);
+        LoadNewRoom(1, true);
+        gameObject.GetComponent<LevelLoader>().UpdatLevelObjects(currentStateID,false);
         currentStateID++;
-        Debug.Log("Current level : " + currentStateID);
+        gameObject.GetComponent<LevelLoader>().UpdatLevelObjects(currentStateID,true);
+        nextLevelScreenObj.GetComponent<NewLevelScreen>().LoadScreen(currentStateID, 3);
+                    // TODO : make array to change the lives value depending on story needs ^^^
+        isInNextLevelScreen = true;
+        playerObj.GetComponent<PlayerController>().canMove = false;
     }
 
     private void InteractWithObj()
@@ -130,7 +152,7 @@ public class GameHandler: MonoBehaviour
                 case 1: // Open Door
                 {
                     if (currentRoomID == 3) LoadNextLevel();
-                    else LoadNewRoom(currentRoomID + 1);
+                    else LoadNewRoom(currentRoomID + 1, true);
                 }
                     break;
                 case 2: // Take Object
@@ -153,6 +175,12 @@ public class GameHandler: MonoBehaviour
                     }
                     break;
                 }
+
+                case 4: // Open door backward
+                {
+                    LoadNewRoom(currentRoomID -1, false);
+                }
+                    break;
             }
         }
     }

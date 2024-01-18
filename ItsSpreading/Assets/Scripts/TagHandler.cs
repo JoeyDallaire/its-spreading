@@ -9,6 +9,7 @@ public class TagHandler : MonoBehaviour
     [SerializeField] private List<GameObject> LeftTags = new List<GameObject>();
     [SerializeField] private List<GameObject> RightTags = new List<GameObject>();
     [SerializeField] private List<GameObject> PlayerStartTags = new List<GameObject>();
+    [SerializeField] private List<GameObject> PlayerStartRightTags = new List<GameObject>();
 
     public float GetMaxPos(bool getLeft, int roomID)
     {
@@ -16,9 +17,10 @@ public class TagHandler : MonoBehaviour
         return RightTags[roomID].transform.position.x;
     }
 
-    public float GetPlayerPosNewRoom(int roomID)
+    public float GetPlayerPosNewRoom(int roomID, bool comingLeft)
     {
-        return PlayerStartTags[roomID].transform.position.x;
+        if (comingLeft) return PlayerStartTags[roomID].transform.position.x;
+        return PlayerStartRightTags[roomID].transform.position.x;
     }
     
     
