@@ -823,7 +823,7 @@ GameObject:
   - component: {fileID: 387166998}
   - component: {fileID: 387166997}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Action_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1272,7 +1272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canInteract: 1
   actionName: Hide
-  actionID: 2
+  actionID: 5
   contextID: 0
   objectNeededID: 0
 --- !u!1 &658325226
@@ -1830,6 +1830,7 @@ GameObject:
   - component: {fileID: 895637216}
   - component: {fileID: 895637217}
   - component: {fileID: 895637218}
+  - component: {fileID: 895637219}
   m_Layer: 0
   m_Name: Handler
   m_TagString: Untagged
@@ -1929,8 +1930,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065a524d38471a2468894a88b3d7740c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  couloirDoorObj: {fileID: 1499795913}
   levelObj0: {fileID: 1767770940}
   levelObj1: {fileID: 351962872}
+--- !u!114 &895637219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895637214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 913c7a93613104f4b8054313d28cbf36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableText: {fileID: 387166995}
 --- !u!1 &939978408
 GameObject:
   m_ObjectHideFlags: 0

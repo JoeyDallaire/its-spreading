@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LevelLoader : MonoBehaviour
 {
+    [SerializeField] private GameObject couloirDoorObj;
+    
     [SerializeField] private GameObject levelObj0;
     [SerializeField] private GameObject levelObj1;
 
@@ -13,7 +15,11 @@ public class LevelLoader : MonoBehaviour
         {
             case 1: levelObj0.SetActive(active);
                 break;
-            case 2: levelObj1.SetActive(active);
+            case 2:
+            {
+                couloirDoorObj.SetActive(!active);
+                levelObj1.SetActive(active);
+            }
                 break;
         }
     }

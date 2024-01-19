@@ -35,12 +35,17 @@ public class GameHandler: MonoBehaviour
     
     // Player related
     private bool isInDialogue = false;
-    private bool isInNextLevelScreen = false;
+    private bool isInNextLevelScreen = true;
     private int heldObject = 0;
+    
+    // UI
+    private UIHandler _uiHandler;
     
     public void Start()
     {
         LoadNewRoom(currentRoomID, true);
+        nextLevelScreenObj.GetComponent<NewLevelScreen>().LoadScreen(currentStateID, 3);
+        _uiHandler = gameObject.GetComponent<UIHandler>();
     }
 
     public void Update()
@@ -69,11 +74,14 @@ public class GameHandler: MonoBehaviour
             
             if ((transform.position.x - obj.transform.position.x) <= MAX_DIST_FROM_INTERACTABLE &&
                 (transform.position.x - obj.transform.position.x) >= -MAX_DIST_FROM_INTERACTABLE &&
-                obj.GetComponent<Interactable>().canInteract)
+                obj.GetComponent<Interactable>().canInteract &&
+                obj.activeInHierarchy)
             {
+                _uiHandler.UpdateInteractableText(obj.GetComponent<Interactable>().GetAcionName());
                 proximityObj = obj;
                 return;
             }
+            _uiHandler.UpdateInteractableText("");
         }
 
         proximityObj = null;
@@ -179,6 +187,11 @@ public class GameHandler: MonoBehaviour
                 case 4: // Open door backward
                 {
                     LoadNewRoom(currentRoomID -1, false);
+                }
+                    break;
+                case 5: // Hide
+                {
+                    Debug.Log("Im hiding ihihih");
                 }
                     break;
             }
