@@ -272,6 +272,8 @@ MonoBehaviour:
   isSolid: 1
   playerObj: {fileID: 2082335119}
   exists: 1
+  currentState: 1
+  hostileSprite: {fileID: 21300000, guid: 78596f54537a90648a02a4a35e028055, type: 3}
 --- !u!212 &74403952
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -384,6 +386,7 @@ MonoBehaviour:
   actionName: Take
   actionID: 2
   contextID: 1
+  isATrigger: 0
   objectNeededID: 0
 --- !u!212 &80898604
 SpriteRenderer:
@@ -512,6 +515,7 @@ MonoBehaviour:
   actionName: Go Through Vent
   actionID: 1
   contextID: 0
+  isATrigger: 0
   objectNeededID: 0
 --- !u!1 &229422329
 GameObject:
@@ -1274,6 +1278,7 @@ MonoBehaviour:
   actionName: Hide
   actionID: 5
   contextID: 0
+  isATrigger: 0
   objectNeededID: 0
 --- !u!1 &658325226
 GameObject:
@@ -2527,6 +2532,7 @@ MonoBehaviour:
   actionName: Open
   actionID: 4
   contextID: 0
+  isATrigger: 0
   objectNeededID: 0
 --- !u!4 &1391880832
 Transform:
@@ -2745,6 +2751,7 @@ MonoBehaviour:
   actionName: Open
   actionID: 1
   contextID: 0
+  isATrigger: 0
   objectNeededID: 0
 --- !u!1 &1501834638
 GameObject:
@@ -2793,6 +2800,7 @@ MonoBehaviour:
   actionName: Open
   actionID: 4
   contextID: 0
+  isATrigger: 0
   objectNeededID: 0
 --- !u!1 &1569484542
 GameObject:
@@ -2922,6 +2930,7 @@ MonoBehaviour:
   actionName: Open
   actionID: 1
   contextID: 0
+  isATrigger: 0
   objectNeededID: 0
 --- !u!1 &1589932369
 GameObject:
@@ -2957,6 +2966,7 @@ MonoBehaviour:
   actionName: Take
   actionID: 2
   contextID: 1
+  isATrigger: 0
   objectNeededID: 0
 --- !u!212 &1589932371
 SpriteRenderer:
@@ -3259,6 +3269,7 @@ MonoBehaviour:
   actionName: Put box
   actionID: 3
   contextID: 0
+  isATrigger: 0
   objectNeededID: 1
   box1Obj: {fileID: 956024140}
   box2Obj: {fileID: 968604598}
@@ -3348,6 +3359,7 @@ MonoBehaviour:
   actionName: Open
   actionID: 1
   contextID: 0
+  isATrigger: 0
   objectNeededID: 0
 --- !u!1 &1941990736
 GameObject:
@@ -3397,6 +3409,7 @@ MonoBehaviour:
   actionName: Take
   actionID: 2
   contextID: 1
+  isATrigger: 0
   objectNeededID: 0
 --- !u!212 &1941990739
 SpriteRenderer:

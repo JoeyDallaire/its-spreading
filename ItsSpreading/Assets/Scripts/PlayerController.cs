@@ -27,6 +27,11 @@ public class PlayerController : Entity
         cameraObj.GetComponent<CameraControl>().UpdateCamera(transform
             .position);
     }
+
+    public void DieFromDog()
+    {
+        handlerObj.GetComponent<GameHandler>().GameOver();
+    }
     
     private void UpdateInputs()
     {

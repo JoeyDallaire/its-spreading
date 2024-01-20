@@ -9,6 +9,7 @@ public class Interactable : MonoBehaviour
     [SerializeField] private string actionName;
     [SerializeField] private int actionID;
     [SerializeField] private int contextID;
+    [SerializeField] private bool isATrigger;
 
     [SerializeField] private int objectNeededID; // 0 = no object needed
     
@@ -39,6 +40,11 @@ public class Interactable : MonoBehaviour
     public void DeleteThisObj()
     {
         gameObject.SetActive(false);
+    }
+
+    public bool IsTrigger()
+    {
+        return isATrigger;
     }
 
     public virtual void UseObjectOnIt(int objectID)

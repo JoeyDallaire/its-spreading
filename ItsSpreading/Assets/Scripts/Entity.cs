@@ -12,7 +12,7 @@ public class Entity : MonoBehaviour
     private float _maxRightPos;
     private float _maxLeftPos;
     
-    public float movementSpeed = 2f;
+    public float movementSpeed = 100f;
     public bool isSolid = true;
 
     public void Start()

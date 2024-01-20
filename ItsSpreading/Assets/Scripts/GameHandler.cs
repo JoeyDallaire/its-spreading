@@ -77,6 +77,11 @@ public class GameHandler: MonoBehaviour
                 obj.GetComponent<Interactable>().canInteract &&
                 obj.activeInHierarchy)
             {
+                if (obj.GetComponent<Interactable>().IsTrigger())
+                {
+                    proximityObj = obj;
+                    InteractWithObj();
+                }
                 _uiHandler.UpdateInteractableText(obj.GetComponent<Interactable>().GetAcionName());
                 proximityObj = obj;
                 return;
@@ -125,6 +130,11 @@ public class GameHandler: MonoBehaviour
         playerObj.GetComponent<PlayerController>().canMove = true;
     }
 
+    public void GameOver()
+    {
+        Debug.Log("You dieded!");
+    }
+
     public void LoadNewRoom(int newRoomID, bool comingLeft)
     {
         float newXpos = gameObject.GetComponent<TagHandler>().GetPlayerPosNewRoom(newRoomID, comingLeft);
@@ -142,6 +152,7 @@ public class GameHandler: MonoBehaviour
         LoadNewRoom(1, true);
         gameObject.GetComponent<LevelLoader>().UpdatLevelObjects(currentStateID,false);
         currentStateID++;
+        dogObj.GetComponent<Dog>().currentState++;
         gameObject.GetComponent<LevelLoader>().UpdatLevelObjects(currentStateID,true);
         nextLevelScreenObj.GetComponent<NewLevelScreen>().LoadScreen(currentStateID, 3);
                     // TODO : make array to change the lives value depending on story needs ^^^
@@ -169,7 +180,6 @@ public class GameHandler: MonoBehaviour
                     {
                         heldObject = proximityObj.GetComponent<Interactable>().GetContextID();
                         proximityObj.GetComponent<Interactable>().DeleteThisObj();
-                        Debug.Log("Now holding object ID : " + heldObject);
                     }
 
                     break;
