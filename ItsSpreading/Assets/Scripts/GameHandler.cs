@@ -85,23 +85,25 @@ public class GameHandler: MonoBehaviour
                     InteractWithObj();
                 }
                 //_uiHandler.UpdateInteractableText(obj.GetComponent<Interactable>().GetAcionName());
-                
-                if (proximityObj == obj) return; // Dont run anything if it's still on the same object
+                if(lastProximityObj != null && lastProximityObj != obj) lastProximityObj.GetComponent<Interactable>().SetHighlight(false);
+                if (proximityObj == obj)
+                {
+                    lastProximityObj = obj;
+                    return;
+                }
                 proximityObj = obj;
-                lastProximityObj = obj;
                 obj.GetComponent<Interactable>().SetHighlight(true);
                 return;
             }
         }
 
-        proximityObj = null;
-        if (lastProximityObj != null)
+        if (proximityObj != null)
         {
-            lastProximityObj.GetComponent<Interactable>().SetHighlight(false);
-            lastProximityObj = null;
+            proximityObj.GetComponent<Interactable>().SetHighlight(false);
+            proximityObj = null;
         }
-        
-        
+
+
     }
 
     public void InteractButtonPress()

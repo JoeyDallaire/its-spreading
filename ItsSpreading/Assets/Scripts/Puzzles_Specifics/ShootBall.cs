@@ -20,9 +20,7 @@ public class ShootBall : Interactable
     public void Start()
     {
         base.Start();
-        ballObj.transform.position = startThrowPosTag.transform.position;
-        startPos = ballObj.transform.position;
-        targetPos = targetObj.transform.position;
+        
         
     }
 
@@ -42,12 +40,20 @@ public class ShootBall : Interactable
         Vector3 nextPos = new Vector3(nextX, baseY + arc, ballObj.transform.position.z);
 
         ballObj.transform.position = nextPos;
-        
-        if (nextPos == targetPos) thrown = false;
+
+        if (nextPos == targetPos)
+        {
+            thrown = false;
+            ballObj.SetActive(false);
+            targetObj.GetComponent<NetAndDoor>().AddBall();
+        }
     }
 
     public void ThrowBall()
     {
+        startPos = startThrowPosTag.transform.position;
+        targetPos = targetObj.transform.position;
+        ballObj.transform.position = startPos;
         thrown = true;
         ballObj.SetActive(true);
     }
