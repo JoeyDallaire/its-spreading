@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameHandler: MonoBehaviour
 {
-    private const float MAX_DIST_FROM_INTERACTABLE = 1f;
+    private const float MAX_DIST_FROM_INTERACTABLE = 1.5f;
     private const float PLAYER_Y_POSITION = -1.25f;
     private const float PLAYER_Z_POSITION = 0f;
     private const float DOG_Y_POSITION = -0.5f;
@@ -22,6 +22,7 @@ public class GameHandler: MonoBehaviour
     [SerializeField] private GameObject dogObj;
     [SerializeField] private GameObject nextLevelScreenObj;
     private GameObject proximityObj;
+    private GameObject lastProximityObj;
     
     
     [SerializeField] private List<Entity> entities = new List<Entity>();
@@ -82,14 +83,22 @@ public class GameHandler: MonoBehaviour
                     proximityObj = obj;
                     InteractWithObj();
                 }
-                _uiHandler.UpdateInteractableText(obj.GetComponent<Interactable>().GetAcionName());
+                //_uiHandler.UpdateInteractableText(obj.GetComponent<Interactable>().GetAcionName());
+                
+                if (proximityObj == obj) return; // Dont run anything if it's still on the same object
                 proximityObj = obj;
+                lastProximityObj = obj;
+                obj.GetComponent<Interactable>().SetHighlight(true);
                 return;
             }
-            _uiHandler.UpdateInteractableText("");
         }
 
         proximityObj = null;
+        if (lastProximityObj != null)
+        {
+            lastProximityObj.GetComponent<Interactable>().SetHighlight(false);
+            lastProximityObj = null;
+        }
         
         
     }
@@ -180,6 +189,7 @@ public class GameHandler: MonoBehaviour
                     {
                         heldObject = proximityObj.GetComponent<Interactable>().GetContextID();
                         proximityObj.GetComponent<Interactable>().DeleteThisObj();
+                        // 5 = scissors
                     }
 
                     break;
@@ -202,6 +212,22 @@ public class GameHandler: MonoBehaviour
                 case 5: // Hide
                 {
                     Debug.Log("Im hiding ihihih");
+                }
+                    break;
+                case 6: // cut this !
+                {
+                    if (heldObject == 5)
+                    {
+                        heldObject = 0;
+                        proximityObj.GetComponent<Interactable>().InitiateNewObj();
+                        proximityObj.GetComponent<Interactable>().DeleteThisObj();
+                        
+                    }
+                    break;
+                }
+                case 7: // Start demo cutscene
+                {
+                    proximityObj.GetComponent<DemoMessageCutScene>().ActivateCutscene();
                 }
                     break;
             }

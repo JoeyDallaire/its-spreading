@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelLoader : MonoBehaviour
 {
     [SerializeField] private GameObject couloirDoorObj;
+    [SerializeField] private GameObject gymLastDoorObj;
     
     [SerializeField] private GameObject levelObj0;
     [SerializeField] private GameObject levelObj1;
@@ -13,7 +14,11 @@ public class LevelLoader : MonoBehaviour
     {
         switch (levelID)
         {
-            case 1: levelObj0.SetActive(active);
+            case 1:
+            {
+                gymLastDoorObj.SetActive(!active);
+                levelObj0.SetActive(active);
+            }
                 break;
             case 2:
             {
