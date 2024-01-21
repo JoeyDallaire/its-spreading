@@ -40,6 +40,7 @@ public class Interactable : MonoBehaviour
         hasSprite = false;
     }
 
+
     public string GetAcionName()
     {
         return actionName;

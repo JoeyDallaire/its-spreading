@@ -17,8 +17,8 @@ public class Dog : Entity
     public bool exists = true;
     private bool isHostile = false;
     
-    private const int FOLLOW_UNTIL = 4;
-    private const int EXIST_UNTIL = 5;
+    private const int FOLLOW_UNTIL = 7;
+    private const int EXIST_UNTIL = 9;
 
     [HideInInspector] public int currentState = 0;
     [SerializeField] private Sprite hostileSprite;

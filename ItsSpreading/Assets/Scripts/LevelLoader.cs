@@ -9,6 +9,11 @@ public class LevelLoader : MonoBehaviour
     
     [SerializeField] private GameObject levelObj0;
     [SerializeField] private GameObject levelObj1;
+    [SerializeField] private GameObject levelObj2;
+    [SerializeField] private GameObject levelObj3;
+    [SerializeField] private GameObject levelObj4;
+    [SerializeField] private GameObject levelObj5;
+    [SerializeField] private GameObject levelObj6;
 
     public void UpdatLevelObjects(int levelID,bool active)
     {
@@ -18,14 +23,20 @@ public class LevelLoader : MonoBehaviour
             {
                 gymLastDoorObj.SetActive(!active);
                 levelObj0.SetActive(active);
-            }
-                break;
+            } break;
             case 2:
             {
+                
+            } break;
+            case 3:
+            {
                 couloirDoorObj.SetActive(!active);
-                levelObj1.SetActive(active);
-            }
-                break;
+                levelObj2.SetActive(active);
+            } break;
+            case 5:
+            {
+                levelObj4.SetActive(active);
+            } break;
         }
     }
 

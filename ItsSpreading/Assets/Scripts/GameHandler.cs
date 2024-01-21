@@ -21,7 +21,7 @@ public class GameHandler: MonoBehaviour
     [SerializeField] private GameObject cameraObj;
     [SerializeField] private GameObject dogObj;
     [SerializeField] private GameObject nextLevelScreenObj;
-    private GameObject proximityObj;
+    [SerializeField] private GameObject proximityObj;
     private GameObject lastProximityObj;
     
     
@@ -38,6 +38,7 @@ public class GameHandler: MonoBehaviour
     private bool isInDialogue = false;
     private bool isInNextLevelScreen = true;
     private int heldObject = 0;
+    public bool isHiding = false;
     
     // UI
     private UIHandler _uiHandler;
@@ -75,8 +76,8 @@ public class GameHandler: MonoBehaviour
             
             if ((transform.position.x - obj.transform.position.x) <= MAX_DIST_FROM_INTERACTABLE &&
                 (transform.position.x - obj.transform.position.x) >= -MAX_DIST_FROM_INTERACTABLE &&
-                obj.GetComponent<Interactable>().canInteract &&
-                obj.activeInHierarchy)
+                obj.activeInHierarchy &&
+                obj.GetComponent<Interactable>().canInteract)
             {
                 if (obj.GetComponent<Interactable>().IsTrigger())
                 {
@@ -118,11 +119,19 @@ public class GameHandler: MonoBehaviour
             playerObj.GetComponent<PlayerController>().canMove = true;
             return;
         }
+        if (isHiding)
+        {
+            playerObj.GetComponent<PlayerController>().HidePlayer(false);
+            isHiding = false;
+            return;
+        }
         if (proximityObj != null)
         {
             InteractWithObj();
             return;
         }
+
+        
     }
 
     public void CallDialogue(string text, Sprite faceImg)
@@ -156,7 +165,7 @@ public class GameHandler: MonoBehaviour
         currentRoomID = newRoomID;
     }
 
-    private void LoadNextLevel()
+    public void LoadNextLevel()
     {
         LoadNewRoom(1, true);
         gameObject.GetComponent<LevelLoader>().UpdatLevelObjects(currentStateID,false);
@@ -181,8 +190,7 @@ public class GameHandler: MonoBehaviour
                 {
                     if (currentRoomID == 3) LoadNextLevel();
                     else LoadNewRoom(currentRoomID + 1, true);
-                }
-                    break;
+                } break;
                 case 2: // Take Object
                 {
                     if (heldObject == 0)
@@ -190,30 +198,27 @@ public class GameHandler: MonoBehaviour
                         heldObject = proximityObj.GetComponent<Interactable>().GetContextID();
                         proximityObj.GetComponent<Interactable>().DeleteThisObj();
                         // 5 = scissors
+                        // 6 = ball
                     }
-
-                    break;
-                }
+                } break;
                 case 3: // Use box on stacks of boxes
                 {
                     if (heldObject == 1)
                     {
                         heldObject = 0;
                         proximityObj.GetComponent<StackOfBoxes>().UseObjectOnIt();
-                    }
-                    break;
+                    } break;
                 }
 
                 case 4: // Open door backward
                 {
                     LoadNewRoom(currentRoomID -1, false);
-                }
-                    break;
+                } break;
                 case 5: // Hide
                 {
-                    Debug.Log("Im hiding ihihih");
-                }
-                    break;
+                    playerObj.GetComponent<PlayerController>().HidePlayer(true);
+                    isHiding = true;
+                } break;
                 case 6: // cut this !
                 {
                     if (heldObject == 5)
@@ -223,13 +228,16 @@ public class GameHandler: MonoBehaviour
                         proximityObj.GetComponent<Interactable>().DeleteThisObj();
                         
                     }
-                    break;
-                }
+                }break;
                 case 7: // Start demo cutscene
                 {
                     proximityObj.GetComponent<DemoMessageCutScene>().ActivateCutscene();
-                }
-                    break;
+                } break;
+                case 8: // throw ball
+                {
+                    heldObject = 0;
+                    proximityObj.GetComponent<ShootBall>().ThrowBall();
+                } break;
             }
         }
     }

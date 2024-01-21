@@ -9,6 +9,7 @@ public class PlayerController : Entity
     [SerializeField] private GameObject handlerObj;
     private bool facingRight = true;
     public bool canMove = true;
+    public bool isHiding;
 
     [SerializeField] private Sprite test_face;
     void Start()
@@ -31,6 +32,12 @@ public class PlayerController : Entity
     public void DieFromDog()
     {
         handlerObj.GetComponent<GameHandler>().GameOver();
+    }
+
+    public void HidePlayer(bool hiding)
+    {
+        canMove = !hiding;
+        gameObject.GetComponent<SpriteRenderer>().enabled = !hiding;
     }
     
     private void UpdateInputs()
@@ -63,7 +70,7 @@ public class PlayerController : Entity
         // Testing 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            handlerObj.GetComponent<GameHandler>().CallDialogue("pp pp pp pp pp pp pp pp pp", test_face);
+            handlerObj.GetComponent<GameHandler>().LoadNextLevel();
         }
     }
 }
