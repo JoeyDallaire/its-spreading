@@ -11,6 +11,7 @@ public class ShootBall : Interactable
     [SerializeField] private float speed;
     [SerializeField] private float throwHeight;
 
+    private bool isKeyNet = true; // if true, it throws to the key net, if false, it throws to the door net
 
     private Vector3 startPos;
     private Vector3 targetPos;
@@ -20,8 +21,11 @@ public class ShootBall : Interactable
     public void Start()
     {
         base.Start();
-        
-        
+        if (targetObj.TryGetComponent<NetAndDoor>(out NetAndDoor netAndDoor))
+        {
+            isKeyNet = false;
+        }
+
     }
 
     public void Update()
@@ -45,6 +49,14 @@ public class ShootBall : Interactable
         {
             thrown = false;
             ballObj.SetActive(false);
+            if (isKeyNet)
+            {
+                targetObj.GetComponent<Interactable>().canInteract = true;
+                targetObj.GetComponent<Interactable>().ChangeAction(2, "Take");
+                targetObj.GetComponent<Interactable>().MoveThis();
+                gameObject.SetActive(false);
+                return;
+            }
             targetObj.GetComponent<NetAndDoor>().AddBall();
         }
     }

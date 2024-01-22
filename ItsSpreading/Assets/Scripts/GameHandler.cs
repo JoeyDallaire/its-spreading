@@ -201,6 +201,8 @@ public class GameHandler: MonoBehaviour
                         proximityObj.GetComponent<Interactable>().DeleteThisObj();
                         // 5 = scissors
                         // 6 = ball
+                        // 7 = locker keys
+                        // 8 = door key
                     }
                 } break;
                 case 3: // Use box on stacks of boxes
@@ -239,6 +241,16 @@ public class GameHandler: MonoBehaviour
                 {
                     heldObject = 0;
                     proximityObj.GetComponent<ShootBall>().ThrowBall();
+                } break;
+                case 9: // Unlock locker locks
+                {
+                    heldObject = 0;
+                    proximityObj.GetComponent<LockerLocks>().UseKeyOnIt();
+                } break;
+                case 10: // unlock door
+                {
+                    heldObject = 0;
+                    proximityObj.GetComponent<Interactable>().ChangeAction(1, "Open");
                 } break;
             }
         }

@@ -12,6 +12,9 @@ public class Interactable : MonoBehaviour
     private Color defaultColor = Color.white;
     
     public bool canInteract = true;
+
+    [SerializeField] private Vector3 posToMove; 
+    
     
     [SerializeField] private string actionName;
     [SerializeField] private int actionID;
@@ -28,6 +31,8 @@ public class Interactable : MonoBehaviour
     // 5 = hide...
     // 6 = cut thing with scissor :)
     // 7 = start demo cutscene
+    // 8 = throw ball
+    // 9 = unlock locker locks
 
     public void Start()
     {
@@ -83,13 +88,20 @@ public class Interactable : MonoBehaviour
         objectSprite.color = defaultColor;
     }
 
+    public void MoveThis()
+    {
+        //TODO MAKE IT AN ANIMATION
+        gameObject.transform.position = posToMove;
+    }
+
+    public void ChangeAction(int newActionID, String newActionName)
+    {
+        actionID = newActionID;
+        actionName = newActionName;
+    }
+
     public void InitiateNewObj()
     {
         objectToInitiate.SetActive(true);
-    }
-
-    public virtual void UseObjectOnIt(int objectID)
-    {
-        
     }
 }
