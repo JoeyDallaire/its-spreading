@@ -28,7 +28,7 @@ public class Dog : Entity
     void Update()
     {
         if(currentState < FOLLOW_UNTIL) FollowPlayer();
-        else if(currentState < EXIST_UNTIL) HostileState();
+        //else if(currentState < EXIST_UNTIL) HostileState();
     }
 
 
@@ -65,7 +65,6 @@ public class Dog : Entity
         if (!exists)
         {
             gameObject.SetActive(false);
-            return;
         }
 
         if (isHostile) ChangePositionCoroutine(newPosition, HOSTILE_NEW_ROOM_WAIT_TIME);
@@ -83,7 +82,5 @@ public class Dog : Entity
         yield return new WaitForSecondsRealtime(waitTime);
         transform.position = newPosition;
     }
-    
-    
     
 }

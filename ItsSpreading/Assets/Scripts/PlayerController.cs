@@ -11,10 +11,16 @@ public class PlayerController : Entity
     public bool canMove = true;
     public bool isHiding;
 
+    private Sprite objectHeldImage;
+
+    [SerializeField] private GameObject heldObjectObj;
+    [SerializeField] private GameObject heldObjectLeftTag;
+    [SerializeField] private GameObject heldObjectObjRightTag;
+
     [SerializeField] private Sprite test_face;
     void Start()
     {
-        
+        gameObject.GetComponent<SpriteRenderer>().flipX = true;
     }
 
     // Update is called once per frame
@@ -39,6 +45,34 @@ public class PlayerController : Entity
         canMove = !hiding;
         gameObject.GetComponent<SpriteRenderer>().enabled = !hiding;
     }
+
+    public void HoldingChange(bool isHolding)
+    {
+        // This should always be given the false parameter!
+        _animator.SetBool("Holding", isHolding);
+        heldObjectObj.SetActive(false);
+        
+    }
+
+    public void HoldingChange(bool isHolding, Sprite objSprite)
+    {
+        // This should always be given the true parameter!
+        _animator.SetBool("Holding", isHolding);
+        heldObjectObj.SetActive(true);
+        heldObjectObj.GetComponent<SpriteRenderer>().sprite = objSprite;
+
+    }
+
+    private void UpdateHeldObjectPOS()
+    {
+        if (isLookingLeft)
+        {
+            heldObjectObj.transform.position = heldObjectLeftTag.transform.position;
+            return;
+        }
+        heldObjectObj.transform.position = heldObjectObjRightTag.transform.position;
+        
+    }
     
     private void UpdateInputs()
     {
@@ -48,18 +82,20 @@ public class PlayerController : Entity
             if (Input.GetKey(KeyCode.D))
             {
                 MoveThis(movementSpeed);
-                _animator.SetBool("isWalking",true);
+                _animator.SetBool("Walking",true);
                 setCameraPos();
+                UpdateHeldObjectPOS();
             }
                     
             else if (Input.GetKey(KeyCode.A))
             {
                 MoveThis(movementSpeed * -1);
-                _animator.SetBool("isWalking",true);
+                _animator.SetBool("Walking",true);
                 setCameraPos();
+                UpdateHeldObjectPOS();
             }
             
-            else _animator.SetBool("isWalking", false);
+            else _animator.SetBool("Walking", false);
         }
         // Interact Input
         if (Input.GetKeyDown(KeyCode.Space))

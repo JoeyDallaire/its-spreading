@@ -5,9 +5,12 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-
+    [SerializeField] private bool isSpriteFlipped = false;
+    
     [SerializeField] private GameObject gameHandlerObj;
     [SerializeField] public Animator _animator;
+
+    [HideInInspector] public bool isLookingLeft;
     
     private float _maxRightPos;
     private float _maxLeftPos;
@@ -25,7 +28,14 @@ public class Entity : MonoBehaviour
         float nextPos = gameObject.transform.position.x + direction;
         if ( nextPos >= _maxRightPos || nextPos < _maxLeftPos ) return;
         gameObject.transform.position += new Vector3(direction,0,0);
+        if (isSpriteFlipped)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = (direction > 0f);
+            isLookingLeft = (direction < 0f);
+            return;
+        }
         gameObject.GetComponent<SpriteRenderer>().flipX = (direction < 0f);
+        isLookingLeft = (direction < 0f);
     }
 
     public void SetMaxRightPos(float newMaxPos)

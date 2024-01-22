@@ -180,6 +180,12 @@ public class GameHandler: MonoBehaviour
         playerObj.GetComponent<PlayerController>().canMove = false;
     }
 
+    private void RemoveHeldObject()
+    {
+        heldObject = 0;
+        playerObj.GetComponent<PlayerController>().HoldingChange(false);
+    }
+
     private void InteractWithObj()
     {
         int checkObjectNeeded = proximityObj.GetComponent<Interactable>().GetObjectNeededID();
@@ -198,6 +204,7 @@ public class GameHandler: MonoBehaviour
                     if (heldObject == 0)
                     {
                         heldObject = proximityObj.GetComponent<Interactable>().GetContextID();
+                        playerObj.GetComponent<PlayerController>().HoldingChange(true,proximityObj.GetComponent<Interactable>().heldObjectSprite);
                         proximityObj.GetComponent<Interactable>().DeleteThisObj();
                         // 5 = scissors
                         // 6 = ball
@@ -209,7 +216,7 @@ public class GameHandler: MonoBehaviour
                 {
                     if (heldObject == 1)
                     {
-                        heldObject = 0;
+                        RemoveHeldObject();
                         proximityObj.GetComponent<StackOfBoxes>().UseObjectOnIt();
                     } break;
                 }
@@ -227,7 +234,7 @@ public class GameHandler: MonoBehaviour
                 {
                     if (heldObject == 5)
                     {
-                        heldObject = 0;
+                        RemoveHeldObject();
                         proximityObj.GetComponent<Interactable>().InitiateNewObj();
                         proximityObj.GetComponent<Interactable>().DeleteThisObj();
                         
@@ -239,17 +246,17 @@ public class GameHandler: MonoBehaviour
                 } break;
                 case 8: // throw ball
                 {
-                    heldObject = 0;
+                    RemoveHeldObject();
                     proximityObj.GetComponent<ShootBall>().ThrowBall();
                 } break;
                 case 9: // Unlock locker locks
                 {
-                    heldObject = 0;
+                    RemoveHeldObject();
                     proximityObj.GetComponent<LockerLocks>().UseKeyOnIt();
                 } break;
                 case 10: // unlock door
                 {
-                    heldObject = 0;
+                    RemoveHeldObject();
                     proximityObj.GetComponent<Interactable>().ChangeAction(1, "Open");
                 } break;
             }

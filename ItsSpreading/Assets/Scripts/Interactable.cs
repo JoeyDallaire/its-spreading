@@ -21,6 +21,7 @@ public class Interactable : MonoBehaviour
     [SerializeField] private int contextID;
     [SerializeField] private bool isATrigger;
     [SerializeField] private GameObject objectToInitiate;
+    public Sprite heldObjectSprite;
 
     [SerializeField] private int objectNeededID; // 0 = no object needed
     
