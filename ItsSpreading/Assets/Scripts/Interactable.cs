@@ -39,13 +39,17 @@ public class Interactable : MonoBehaviour
 
     public void Start()
     {
+        CheckSpriteAvailable();
+
+        hasSprite = false;
+    }
+
+    public void CheckSpriteAvailable()
+    {
         if (gameObject.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRenderer))
         {
             objectSprite = spriteRenderer;
-            return;
         }
-
-        hasSprite = false;
     }
 
 

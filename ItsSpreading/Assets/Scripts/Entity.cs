@@ -12,7 +12,7 @@ public class Entity : MonoBehaviour
 
     [HideInInspector] public bool isLookingLeft;
     
-    private float _maxRightPos;
+    [HideInInspector] public float _maxRightPos;
     private float _maxLeftPos;
     
     public float movementSpeed = 100f;

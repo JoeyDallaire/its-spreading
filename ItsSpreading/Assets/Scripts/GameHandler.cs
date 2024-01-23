@@ -32,6 +32,7 @@ public class GameHandler: MonoBehaviour
     public int currentRoomID = 1;
     public int currentStateID = 1;
     public int currentStoryStateID = 1;
+    private int livesValue = 3;
     
     
     // Player related
@@ -184,19 +185,13 @@ public class GameHandler: MonoBehaviour
         playerObj.GetComponent<PlayerController>().canMove = true;
     }
 
-    public void GameOver()
-    {
-        Debug.Log("You dieded!");
-    }
-
     public void LoadNewRoom(int newRoomID, bool comingLeft)
     {
+        playerObj.GetComponent<PlayerController>().canMove = false;
         float newXpos = gameObject.GetComponent<TagHandler>().GetPlayerPosNewRoom(newRoomID, comingLeft);
-        
-        
         playerObj.transform.position = new Vector3(newXpos,PLAYER_Y_POSITION, PLAYER_Z_POSITION);
-        dogObj.GetComponent<Dog>().LoadingInNewRoom(new Vector3(newXpos,DOG_Y_POSITION,DOG_Z_POSITION));
         SetMaxPos(newRoomID);
+        dogObj.GetComponent<Dog>().LoadingInNewRoom(new Vector3(newXpos,DOG_Y_POSITION,DOG_Z_POSITION));
         playerObj.GetComponent<PlayerController>().setCameraPos();
         currentRoomID = newRoomID;
     }
@@ -211,6 +206,18 @@ public class GameHandler: MonoBehaviour
         nextLevelScreenObj.GetComponent<NewLevelScreen>().LoadScreen(currentStateID, 3);
                     // TODO : make array to change the lives value depending on story needs ^^^
         isInNextLevelScreen = true;
+        playerObj.GetComponent<PlayerController>().canMove = false;
+    }
+
+    public void GameOver()
+    {
+        livesValue--;
+        LoadNewRoom(1,true);
+        gameObject.GetComponent<LevelLoader>().UpdatLevelObjects(currentStateID,false);
+        gameObject.GetComponent<LevelLoader>().UpdatLevelObjects(currentStateID,true);
+        nextLevelScreenObj.GetComponent<NewLevelScreen>().LoadScreen(currentStateID, livesValue);
+        isInNextLevelScreen = true;
+        dogObj.GetComponent<Dog>().ResetValuesAtGameOver();
         playerObj.GetComponent<PlayerController>().canMove = false;
     }
 
@@ -234,7 +241,6 @@ public class GameHandler: MonoBehaviour
                     else CallTransitionScreen(0,0.5f);
                     if (currentRoomID == 3) LoadNextLevel();
                     else LoadNewRoom(currentRoomID + 1, true);
-                    Debug.Log("here!");
                 } break;
                 case 2: // Take Object
                 {
@@ -313,6 +319,11 @@ public class GameHandler: MonoBehaviour
                 case 12: // Switches
                 {
                     proximityObj.GetComponent<SwitchController>().InteractWith();
+                } break;
+                case 13: // Cut Cage Rope
+                {
+                    RemoveHeldObject();
+                    proximityObj.GetComponent<CageRope>().CutIt();
                 } break;
             }
         }

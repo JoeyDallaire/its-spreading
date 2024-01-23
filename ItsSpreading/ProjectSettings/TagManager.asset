@@ -41,3 +41,24 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1160144431
+    locked: 0
+  - name: Interact Back
+    uniqueID: 888277361
+    locked: 0
+  - name: Interact Front
+    uniqueID: 1361410785
+    locked: 0
+  - name: Dog
+    uniqueID: 2708921319
+    locked: 0
+  - name: Player
+    uniqueID: 3379261653
+    locked: 0
+  - name: ForeGround
+    uniqueID: 3410272563
+    locked: 0
+  - name: Camera
+    uniqueID: 1772943753
+    locked: 0

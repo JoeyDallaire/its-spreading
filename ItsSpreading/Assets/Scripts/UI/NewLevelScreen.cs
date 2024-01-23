@@ -9,7 +9,7 @@ public class NewLevelScreen : MonoBehaviour
     [SerializeField] private GameObject textObj;
     [SerializeField] private GameObject livesValueObj;
 
-    private int[] levelTrueNames = {0, 10, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10};
+    private int[] levelTrueNames = {0, 10, -1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12, -2147483647};
     
     private const string DEFAULT_TEXT = "Level : ";
     private const string DEFAULT_LIVES_TEXT = "x ";

@@ -5,10 +5,13 @@ using UnityEngine;
 public class LevelLoader : MonoBehaviour
 {
     [Header("Specific Objects")]
+    [SerializeField] private GameObject cafetDoorObj;
     [SerializeField] private GameObject couloirDoorObj;
+    [SerializeField] private GameObject couloirLeftDoorObj;
     [SerializeField] private GameObject gymLastDoorObj;
     [SerializeField] private GameObject gymLeftDoorObj;
     [SerializeField] private GameObject lockObj;
+    [SerializeField] private GameObject dogObj;
     
     [Header("Level Folders")]
     
@@ -19,7 +22,13 @@ public class LevelLoader : MonoBehaviour
     [SerializeField] private GameObject levelObj4;
     [SerializeField] private GameObject levelObj5;
     [SerializeField] private GameObject levelObj6;
-    [SerializeField] private GameObject levelobj7;
+    [SerializeField] private GameObject levelObj7;
+    [SerializeField] private GameObject levelObj8;
+    [SerializeField] private GameObject levelObj9;
+    [SerializeField] private GameObject levelObj10;
+    [SerializeField] private GameObject levelObj11;
+    [SerializeField] private GameObject levelObj12;
+    [SerializeField] private GameObject levelObj13;
 
     public void UpdatLevelObjects(int levelID,bool active)
     {
@@ -33,7 +42,7 @@ public class LevelLoader : MonoBehaviour
             } break;
             case 1:
             {
-                
+                levelObj1.SetActive(active);
             } break;
             case 2:
             {
@@ -64,7 +73,51 @@ public class LevelLoader : MonoBehaviour
             case 7:
             {
                 gymLastDoorObj.SetActive(!active);
-                levelobj7.SetActive(active);
+                levelObj7.SetActive(active);
+            } break;
+            case 8:
+            {
+                levelObj8.SetActive(active);
+            } break;
+            case 9:
+            {
+                dogObj.GetComponent<Dog>().ResetValuesAtGameOver();
+                lockObj.SetActive(!active);
+                levelObj9.SetActive(active);
+            } break;
+            case 10:
+            {
+                dogObj.GetComponent<Dog>().ResetValuesAtGameOver();
+                lockObj.SetActive(!active);
+                levelObj10.SetActive(active);
+            } break;
+            case 11:
+            {
+                dogObj.GetComponent<Dog>().ResetValuesAtGameOver();
+                gymLastDoorObj.SetActive(!active);
+                lockObj.SetActive(!active);
+                levelObj11.SetActive(active);
+            } break;
+            case 12:
+            {
+                cafetDoorObj.GetComponent<Interactable>().CheckSpriteAvailable();
+                couloirDoorObj.GetComponent<Interactable>().CheckSpriteAvailable();
+                couloirLeftDoorObj.GetComponent<Interactable>().CheckSpriteAvailable(); 
+                gymLeftDoorObj.GetComponent<Interactable>().CheckSpriteAvailable(); 
+                gymLastDoorObj.GetComponent<Interactable>().CheckSpriteAvailable();
+                
+                cafetDoorObj.GetComponent<SpriteRenderer>().enabled = active;
+                couloirDoorObj.GetComponent<SpriteRenderer>().enabled = active;
+                couloirLeftDoorObj.GetComponent<SpriteRenderer>().enabled = active;
+                gymLeftDoorObj.GetComponent<SpriteRenderer>().enabled = active;
+                gymLastDoorObj.GetComponent<SpriteRenderer>().enabled = active;
+                
+                
+                levelObj12.SetActive(active);
+            } break;
+            case 13:
+            {
+                levelObj13.SetActive(active);
             } break;
         }
     }
