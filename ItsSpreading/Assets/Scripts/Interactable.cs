@@ -9,7 +9,7 @@ public class Interactable : MonoBehaviour
     private SpriteRenderer objectSprite;
     private bool hasSprite  = true;
     private Color highlightColor = new Color(0.745f, 1, 1);
-    private Color defaultColor = Color.white;
+    public Color defaultColor = Color.white;
     
     public bool canInteract = true;
 

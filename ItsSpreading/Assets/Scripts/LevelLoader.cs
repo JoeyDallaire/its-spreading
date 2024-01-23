@@ -54,6 +54,7 @@ public class LevelLoader : MonoBehaviour
             } break;
             case 5:
             {
+                gymLastDoorObj.SetActive(!active);
                 levelObj5.SetActive(active);
             } break;
             case 6:

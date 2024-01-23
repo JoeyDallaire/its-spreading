@@ -45,6 +45,9 @@ public class GameHandler: MonoBehaviour
     private float transitionScreenTicker = 0;
     private float transitionScreenTime = 0;
     private bool isInTransition = false;
+    
+    // Sounds
+    [SerializeField] private AudioHandler audioHandler;
     public void Start()
     {
         LoadNewRoom(currentRoomID, true);
@@ -109,8 +112,14 @@ public class GameHandler: MonoBehaviour
 
     }
 
+    public void PlaySound(int ID)
+    {
+        audioHandler.PlaySound(ID);
+    }
+
     public void InteractButtonPress()
     {
+        if(isInTransition) return;
         if (isInDialogue)
         {
             DeleteCurrentDialogue();
@@ -126,6 +135,7 @@ public class GameHandler: MonoBehaviour
         }
         if (isHiding)
         {
+            PlaySound(3);
             playerObj.GetComponent<PlayerController>().HidePlayer(false);
             isHiding = false;
             return;
@@ -146,7 +156,7 @@ public class GameHandler: MonoBehaviour
         transitionScreenTime = transitionTime;
         transitionScreenTicker = 0f;
         playerObj.GetComponent<PlayerController>().canMove = false;
-        Debug.Log("Play sound #" + SoundID);
+        PlaySound(SoundID);
     }
 
     private void TransitionScreenLoop()
@@ -220,9 +230,11 @@ public class GameHandler: MonoBehaviour
             {
                 case 1: // Open Door
                 {
-                    if(proximityObj.GetComponent<Interactable>().GetContextID() == 1) CallTransitionScreen(1,2f); // this is for the vent
+                    if(proximityObj.GetComponent<Interactable>().GetContextID() == 1) CallTransitionScreen(2,2f); // this is for the vent
+                    else CallTransitionScreen(0,0.5f);
                     if (currentRoomID == 3) LoadNextLevel();
                     else LoadNewRoom(currentRoomID + 1, true);
+                    Debug.Log("here!");
                 } break;
                 case 2: // Take Object
                 {
@@ -250,10 +262,12 @@ public class GameHandler: MonoBehaviour
                 case 4: // Open door backward
                 {
                     LoadNewRoom(currentRoomID -1, false);
+                    CallTransitionScreen(0,0.5f);
                 } break;
                 case 5: // Hide
                 {
                     playerObj.GetComponent<PlayerController>().HidePlayer(true);
+                    PlaySound(3);
                     isHiding = true;
                 } break;
                 case 6: // cut this !
@@ -295,6 +309,10 @@ public class GameHandler: MonoBehaviour
                     {
                         CallDialogue(proximityObj.GetComponent<DuplicatingMachine>().InteractWithIt(heldObject),null);
                     }
+                } break;
+                case 12: // Switches
+                {
+                    proximityObj.GetComponent<SwitchController>().InteractWith();
                 } break;
             }
         }
