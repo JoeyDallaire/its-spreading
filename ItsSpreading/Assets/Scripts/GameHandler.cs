@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class GameHandler: MonoBehaviour
 {
-    private const float MAX_DIST_FROM_INTERACTABLE = 1.5f;
-    private const float PLAYER_Y_POSITION = -1.25f;
+    private const float MAX_DIST_FROM_INTERACTABLE = 2.5f;
+    private const float PLAYER_Y_POSITION = 0.96f;
     private const float PLAYER_Z_POSITION = 0f;
     private const float DOG_Y_POSITION = -0.5f;
     private const float DOG_Z_POSITION = 2f;
@@ -42,7 +42,9 @@ public class GameHandler: MonoBehaviour
     
     // UI
     private UIHandler _uiHandler;
-    
+    private float transitionScreenTicker = 0;
+    private float transitionScreenTime = 0;
+    private bool isInTransition = false;
     public void Start()
     {
         LoadNewRoom(currentRoomID, true);
@@ -53,6 +55,7 @@ public class GameHandler: MonoBehaviour
     public void Update()
     {
         UpdateProximityObj();
+        if(isInTransition) TransitionScreenLoop();
     }
 
     public void SetMaxPos(int roomID)
@@ -136,6 +139,27 @@ public class GameHandler: MonoBehaviour
         
     }
 
+    public void CallTransitionScreen(int SoundID, float transitionTime)
+    {
+        _uiHandler.SetTransitionScreen(true);
+        isInTransition = true;
+        transitionScreenTime = transitionTime;
+        transitionScreenTicker = 0f;
+        playerObj.GetComponent<PlayerController>().canMove = false;
+        Debug.Log("Play sound #" + SoundID);
+    }
+
+    private void TransitionScreenLoop()
+    {
+        transitionScreenTicker += Time.deltaTime;
+        if (transitionScreenTicker >= transitionScreenTime)
+        {
+            _uiHandler.SetTransitionScreen(false);
+            isInTransition = false;
+            playerObj.GetComponent<PlayerController>().canMove = true;
+        }
+    }
+
     public void CallDialogue(string text, Sprite faceImg)
     {
         dialogueBoxObj.GetComponent<DialogueBox>().callDialogueBox(text,faceImg);
@@ -180,7 +204,7 @@ public class GameHandler: MonoBehaviour
         playerObj.GetComponent<PlayerController>().canMove = false;
     }
 
-    private void RemoveHeldObject()
+    public void RemoveHeldObject()
     {
         heldObject = 0;
         playerObj.GetComponent<PlayerController>().HoldingChange(false);
@@ -196,6 +220,7 @@ public class GameHandler: MonoBehaviour
             {
                 case 1: // Open Door
                 {
+                    if(proximityObj.GetComponent<Interactable>().GetContextID() == 1) CallTransitionScreen(1,2f); // this is for the vent
                     if (currentRoomID == 3) LoadNextLevel();
                     else LoadNewRoom(currentRoomID + 1, true);
                 } break;
@@ -210,6 +235,7 @@ public class GameHandler: MonoBehaviour
                         // 6 = ball
                         // 7 = locker keys
                         // 8 = door key
+                        // 9 = money
                     }
                 } break;
                 case 3: // Use box on stacks of boxes
@@ -257,7 +283,18 @@ public class GameHandler: MonoBehaviour
                 case 10: // unlock door
                 {
                     RemoveHeldObject();
-                    proximityObj.GetComponent<Interactable>().ChangeAction(1, "Open");
+                    proximityObj.GetComponent<Interactable>().InitiateNewObj();
+                } break;
+                case 11: // Use machine
+                {
+                    if (proximityObj.TryGetComponent<VendingMachine>(out VendingMachine vendingMachine))
+                    {
+                        CallDialogue(vendingMachine.InteractWithIt(heldObject),null);
+                    }
+                    else
+                    {
+                        CallDialogue(proximityObj.GetComponent<DuplicatingMachine>().InteractWithIt(heldObject),null);
+                    }
                 } break;
             }
         }

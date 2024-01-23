@@ -2,24 +2,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ScissorsCutscene : MonoBehaviour
 {
-    [SerializeField] private GameObject finalPosTag;
     [SerializeField] private Sprite glitchedSprite;
-    [SerializeField] private int speed;
+    [SerializeField] private Sprite scissorsSprite;
+    [SerializeField] private int lenght;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
+
+    [SerializeField] private Vector3 scissorsScale;
+    [SerializeField] private Vector3 glitchScale;
     
-    private Vector3 finalPosition;
-    private int ticker;
+    
+    private int ticker = 0;
 
     private void Start()
     {
-        finalPosition = finalPosTag.transform.position;
-        
+        _spriteRenderer.sprite = glitchedSprite;
+        transform.localScale = glitchScale;
     }
 
     private void Update()
     {
+        ticker++;
+        if (ticker > lenght)
+        {
+            _spriteRenderer.sprite = glitchedSprite;
+            transform.localScale = glitchScale;
+            ticker = 0;
+            return;
+        }
         
+        if (ticker > lenght/4)
+        {
+            _spriteRenderer.sprite = scissorsSprite;
+            transform.localScale = scissorsScale;
+            return;
+        }
     }
+    
+    
 }

@@ -7,6 +7,7 @@ using UnityEngine;
 public class UIHandler : MonoBehaviour
 {
     [SerializeField] private GameObject interactableText;
+    [SerializeField] private GameObject transitionScreen;
 
     private void Start()
     {
@@ -16,6 +17,11 @@ public class UIHandler : MonoBehaviour
     public void UpdateInteractableText(String action)
     {
         interactableText.GetComponent<TextMeshProUGUI>().text = action;
+    }
+
+    public void SetTransitionScreen(bool active)
+    {
+        transitionScreen.SetActive(active);
     }
     
     

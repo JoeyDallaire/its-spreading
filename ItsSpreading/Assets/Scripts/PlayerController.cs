@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +25,12 @@ public class PlayerController : Entity
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
+    {
+        UpdateMovementInputs();
+    }
+
+    private void Update()
     {
         UpdateInputs();
     }
@@ -73,10 +79,9 @@ public class PlayerController : Entity
         heldObjectObj.transform.position = heldObjectObjRightTag.transform.position;
         
     }
-    
-    private void UpdateInputs()
+
+    private void UpdateMovementInputs()
     {
-        // Player movement
         if (canMove)
         {
             if (Input.GetKey(KeyCode.D))
@@ -97,6 +102,10 @@ public class PlayerController : Entity
             
             else _animator.SetBool("Walking", false);
         }
+    }
+    private void UpdateInputs()
+    {
+        
         // Interact Input
         if (Input.GetKeyDown(KeyCode.Space))
         {

@@ -16,8 +16,10 @@ public class DialogueBox : MonoBehaviour
 
     public void callDialogueBox(string text, Sprite faceImg)
     {
+        
         pannel.SetActive(true);
-        imageObj.GetComponent<Image>().sprite = faceImg;
+        if(faceImg == null) imageObj.SetActive(false);
+        else imageObj.GetComponent<Image>().sprite = faceImg;
         textObj.GetComponent<TextMeshProUGUI>().text = text;
         
     }

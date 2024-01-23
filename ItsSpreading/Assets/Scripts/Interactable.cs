@@ -34,6 +34,8 @@ public class Interactable : MonoBehaviour
     // 7 = start demo cutscene
     // 8 = throw ball
     // 9 = unlock locker locks
+    //10 = unlock door
+    //11 = interact with machine
 
     public void Start()
     {
@@ -104,5 +106,6 @@ public class Interactable : MonoBehaviour
     public void InitiateNewObj()
     {
         objectToInitiate.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

@@ -25,7 +25,7 @@ public class Dog : Entity
     
     
 
-    void Update()
+    void FixedUpdate()
     {
         if(currentState < FOLLOW_UNTIL) FollowPlayer();
         //else if(currentState < EXIST_UNTIL) HostileState();

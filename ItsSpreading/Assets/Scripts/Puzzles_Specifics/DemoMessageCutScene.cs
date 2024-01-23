@@ -36,7 +36,7 @@ public class DemoMessageCutScene : Interactable
 
     private void SpawnScissor()
     {
-        scissorsObj.SetActive(true); //TODO make some fucking animation 
+        scissorsObj.SetActive(true);
     }
     
 }
