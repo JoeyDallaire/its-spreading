@@ -107,9 +107,9 @@ public class Interactable : MonoBehaviour
         actionName = newActionName;
     }
 
-    public void InitiateNewObj()
+    public void InitiateNewObj(bool deleteThis)
     {
         objectToInitiate.SetActive(true);
-        gameObject.SetActive(false);
+        gameObject.SetActive(!deleteThis);
     }
 }

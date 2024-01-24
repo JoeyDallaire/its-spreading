@@ -37,6 +37,16 @@ public class Dog : MonoBehaviour
     [SerializeField] private Sprite hostileSprite;
 
     private Vector3 lastLoadingPosition;
+    
+    // Animation related
+    [SerializeField] private Animator _animator;
+    private int buggedLevel = 0;
+    private bool isWalking = false;
+
+    public void Start()
+    {
+        _animator.SetInteger("glitchedLvl", 0);
+    }
 
     void FixedUpdate()
     {
@@ -48,6 +58,7 @@ public class Dog : MonoBehaviour
         };
         if (currentState == 7) stopLoadingInNewRoom = true;
         if(currentState >= HOSTILE_AT) HostileState();
+        _animator.SetBool("isWalking", true);
     }
 
 
@@ -55,8 +66,11 @@ public class Dog : MonoBehaviour
     {
         if (Math.Abs(playerObj.transform.position.x - transform.position.x) > MAX_DIST_FROM_PLAYER)
         {
+            _animator.SetBool("isWalking", true);
             MoveThis((playerObj.transform.position.x - transform.position.x)*SPEED_MULTIPLIER);
+            return;
         }
+        _animator.SetBool("isWalking", false);
     }
 
     private void HostileState()
@@ -119,8 +133,8 @@ public class Dog : MonoBehaviour
     {
         float nextPos = gameObject.transform.position.x + direction;
         gameObject.transform.position += new Vector3(direction,0,0);
-        gameObject.GetComponent<SpriteRenderer>().flipX = (direction < 0f);
-        isLookingLeft = (direction < 0f);
+        gameObject.GetComponent<SpriteRenderer>().flipX = (direction > 0f);
+        isLookingLeft = (direction > 0f);
     }
 
     private float GetDogChaseSpeed()

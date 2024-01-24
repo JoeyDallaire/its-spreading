@@ -11,6 +11,7 @@ public class PlayerController : Entity
     private bool facingRight = true;
     public bool canMove = true;
     public bool isHiding;
+    [HideInInspector] public bool forceStop = false ; 
 
     private Sprite objectHeldImage;
 
@@ -27,7 +28,7 @@ public class PlayerController : Entity
     // Update is called once per frame
     void FixedUpdate()
     {
-        UpdateMovementInputs();
+        if (!forceStop) UpdateMovementInputs();
     }
 
     private void Update()

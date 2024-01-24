@@ -12,6 +12,7 @@ public class LevelLoader : MonoBehaviour
     [SerializeField] private GameObject gymLeftDoorObj;
     [SerializeField] private GameObject lockObj;
     [SerializeField] private GameObject dogObj;
+    [SerializeField] private GameObject gymLastDoorSprite;
     
     [Header("Level Folders")]
     
@@ -46,8 +47,7 @@ public class LevelLoader : MonoBehaviour
             } break;
             case 2:
             {
-                couloirDoorObj.SetActive(!active);
-                gymLeftDoorObj.SetActive(!active);
+                gymLastDoorObj.SetActive(!active);
                 levelObj2.SetActive(active);
             } break;
             case 3:
@@ -58,6 +58,7 @@ public class LevelLoader : MonoBehaviour
             } break;
             case 4:
             {
+                gymLastDoorSprite.SetActive(!active);
                 gymLastDoorObj.SetActive(!active);
                 levelObj4.SetActive(active);
             } break;
@@ -118,6 +119,7 @@ public class LevelLoader : MonoBehaviour
             case 13:
             {
                 levelObj13.SetActive(active);
+                gameObject.GetComponent<GameHandler>().ForceStopPlayer();
             } break;
         }
     }

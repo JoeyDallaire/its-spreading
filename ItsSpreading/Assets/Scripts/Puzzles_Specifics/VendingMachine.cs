@@ -15,10 +15,9 @@ public class VendingMachine : Interactable
         if (objectHeldID != 9) return "You need money to use this.";
         if (canGiveItem)
         {
-            InitiateNewObj();
             canInteract = false;
             gameHandlerObj.GetComponent<GameHandler>().RemoveHeldObject();
-            InitiateNewObj();
+            InitiateNewObj(false);
             return "A key comes out of the machine!";
         }
 

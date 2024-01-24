@@ -8,7 +8,7 @@ public class GameHandler: MonoBehaviour
     private const float MAX_DIST_FROM_INTERACTABLE = 2.5f;
     private const float PLAYER_Y_POSITION = 0.96f;
     private const float PLAYER_Z_POSITION = 0f;
-    private const float DOG_Y_POSITION = -0.5f;
+    private const float DOG_Y_POSITION = 2.89f;
     private const float DOG_Z_POSITION = 2f;
     
     //[SerializeField] private float initialMaxRightPos;
@@ -72,7 +72,7 @@ public class GameHandler: MonoBehaviour
             entity.SetMaxLeftPos(newMaxLeftPos);
         }
         
-        cameraObj.GetComponent<CameraControl>().UpdateMaxPos(newMaxLeftPos + 9.5f, newMaxRightPos-9.5f);
+        cameraObj.GetComponent<CameraControl>().UpdateMaxPos(newMaxLeftPos + 10f, newMaxRightPos-9.5f);
     }
 
     private void UpdateProximityObj()
@@ -227,6 +227,11 @@ public class GameHandler: MonoBehaviour
         playerObj.GetComponent<PlayerController>().HoldingChange(false);
     }
 
+    public void ForceStopPlayer()
+    {
+        playerObj.GetComponent<PlayerController>().forceStop = true;
+    }
+
     private void InteractWithObj()
     {
         int checkObjectNeeded = proximityObj.GetComponent<Interactable>().GetObjectNeededID();
@@ -281,7 +286,7 @@ public class GameHandler: MonoBehaviour
                     if (heldObject == 5)
                     {
                         RemoveHeldObject();
-                        proximityObj.GetComponent<Interactable>().InitiateNewObj();
+                        proximityObj.GetComponent<Interactable>().InitiateNewObj(true);
                         proximityObj.GetComponent<Interactable>().DeleteThisObj();
                         
                     }
@@ -303,7 +308,7 @@ public class GameHandler: MonoBehaviour
                 case 10: // unlock door
                 {
                     RemoveHeldObject();
-                    proximityObj.GetComponent<Interactable>().InitiateNewObj();
+                    proximityObj.GetComponent<Interactable>().InitiateNewObj(true);
                 } break;
                 case 11: // Use machine
                 {
