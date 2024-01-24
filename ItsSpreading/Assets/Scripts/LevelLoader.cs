@@ -13,6 +13,7 @@ public class LevelLoader : MonoBehaviour
     [SerializeField] private GameObject lockObj;
     [SerializeField] private GameObject dogObj;
     [SerializeField] private GameObject gymLastDoorSprite;
+    [SerializeField] private GameObject stuffDeletelvl12;
     
     [Header("Level Folders")]
     
@@ -112,6 +113,8 @@ public class LevelLoader : MonoBehaviour
                 couloirLeftDoorObj.GetComponent<SpriteRenderer>().enabled = active;
                 gymLeftDoorObj.GetComponent<SpriteRenderer>().enabled = active;
                 gymLastDoorObj.GetComponent<SpriteRenderer>().enabled = active;
+                
+                stuffDeletelvl12.SetActive(false);
                 
                 
                 levelObj12.SetActive(active);

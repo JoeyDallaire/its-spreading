@@ -112,11 +112,16 @@ public class PlayerController : Entity
         {
             handlerObj.GetComponent<GameHandler>().InteractButtonPress();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
         
-        // Testing 
+        /* Testing 
         if (Input.GetKeyDown(KeyCode.E))
         {
             handlerObj.GetComponent<GameHandler>().LoadNextLevel();
-        }
+        }*/
     }
 }

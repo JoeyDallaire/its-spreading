@@ -19,6 +19,7 @@ public class CageRope : Interactable
     public void CutIt()
     {
         isCut = true;
+        glitchedDoor.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     public void Update()
@@ -34,6 +35,7 @@ public class CageRope : Interactable
                     dogObj.GetComponent<Dog>().isBlockedInCage = true;
                     dogObj.GetComponent<Dog>().exists = false;
                     glitchedDoor.SetActive(true);
+                    gameObject.SetActive(false);
                 }
             }
         }
