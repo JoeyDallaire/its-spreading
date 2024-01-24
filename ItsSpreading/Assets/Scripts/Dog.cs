@@ -23,6 +23,10 @@ public class Dog : MonoBehaviour
     [SerializeField] private GameObject gymStartTag;
 
     [SerializeField] private GameObject wallToDestroy;
+    [SerializeField] private GameObject addGlitchObj;
+
+    [SerializeField] private AudioClip chaseClip;
+    [SerializeField] private AudioClip waitClip;
     
     // State related
     public bool exists = true;
@@ -40,12 +44,13 @@ public class Dog : MonoBehaviour
     
     // Animation related
     [SerializeField] private Animator _animator;
-    private int buggedLevel = 0;
+    public int buggedLevel = 0;
     private bool isWalking = false;
 
     public void Start()
     {
         _animator.SetInteger("glitchedLvl", 0);
+        gameObject.GetComponent<AudioSource>().clip = waitClip;
     }
 
     void FixedUpdate()
@@ -93,6 +98,7 @@ public class Dog : MonoBehaviour
             if (Math.Abs(wallToDestroy.transform.position.x - transform.position.x) <= HOSTILE_DIST_FROM_DOOR)
             {
                 wallToDestroy.GetComponent<WallOfDeath>().DestroyWall();
+                addGlitchObj.SetActive(true);
             }
             // normal chase
             MoveThis(GetDogChaseSpeed());
@@ -103,6 +109,8 @@ public class Dog : MonoBehaviour
             return;
         }
         // This code will only be reached when the dog STARTS to become hostile
+        gameObject.GetComponent<AudioSource>().clip = chaseClip;
+        gameObject.GetComponent<AudioSource>().Play();
         isHostile = true;
     }
 
@@ -125,6 +133,8 @@ public class Dog : MonoBehaviour
 
     public void ResetValuesAtGameOver()
     {
+        gameObject.GetComponent<AudioSource>().clip = waitClip;
+        if(!isBlockedInCage)gameObject.GetComponent<AudioSource>().Play();
         isHostile = false;
         transform.position = lastLoadingPosition;
     }
@@ -145,5 +155,14 @@ public class Dog : MonoBehaviour
         return HOSTILE_SPEED_VALUE * 1.5f;
     }
 
-    
+    public void AugmentBuggedLevel()
+    {
+        buggedLevel++;
+        _animator.SetInteger("glitchedLvl", buggedLevel);
+    }
+
+    private void isVisible(bool spriteActive)
+    {
+        gameObject.GetComponent<SpriteRenderer>().enabled = spriteActive;
+    }
 }

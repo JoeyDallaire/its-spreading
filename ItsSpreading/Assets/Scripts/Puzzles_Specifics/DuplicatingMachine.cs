@@ -20,6 +20,7 @@ public class DuplicatingMachine : Interactable
         if (objectHeldID != 9) return "You need money to use this.";
         money *= 2;
         if (money >= moneyNeeded) expensiveMachine.GetComponent<VendingMachine>().canGiveItem = true;
+        gameObject.GetComponent<AudioSource>().Play();
         return ("The machine somehow doubled your money. You now have " + money + "$.");
 
        

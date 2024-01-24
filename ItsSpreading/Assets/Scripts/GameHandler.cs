@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
+using System.Data;
+using Mono.Data.Sqlite;
 
 public class GameHandler: MonoBehaviour
 {
@@ -46,11 +49,19 @@ public class GameHandler: MonoBehaviour
     private float transitionScreenTicker = 0;
     private float transitionScreenTime = 0;
     private bool isInTransition = false;
+
+    [SerializeField] private Sprite[] _dialogueSprites;
+    // datas
+    private string dbFilename;
+    private List<Dialogue> _dialogues;
     
     // Sounds
     [SerializeField] private AudioHandler audioHandler;
+    [SerializeField] private AudioClip[] _LevelSoundClips;
     public void Start()
     {
+        dbFilename = "URI=file:dialoguesData.db"; //" + Application.persistentDataPath + "
+        _dialogues = LoadDialogue();
         LoadNewRoom(currentRoomID, true);
         nextLevelScreenObj.GetComponent<NewLevelScreen>().LoadScreen(currentStateID, 3);
         _uiHandler = gameObject.GetComponent<UIHandler>();
@@ -73,6 +84,33 @@ public class GameHandler: MonoBehaviour
         }
         
         cameraObj.GetComponent<CameraControl>().UpdateMaxPos(newMaxLeftPos + 10f, newMaxRightPos-9.5f);
+    }
+
+    private List<Dialogue> LoadDialogue()
+    {
+        List<Dialogue> tempDialogueList = new List<Dialogue>();
+        using (var connection = new SqliteConnection(dbFilename))
+        {
+            connection.Open();
+            using (var command = connection.CreateCommand())
+            {
+                //command.CommandText = "CREATE TABLE IF NOT EXISTS dialogues (text VARCHAR(200), spriteid INT)";
+                //command.ExecuteNonQuery();
+                command.CommandText = "SELECT * FROM dialogues;";
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        tempDialogueList.Add(new Dialogue(reader["text"].ToString(), (int)reader["spriteid"]));
+                    }
+                    reader.Close();
+                }
+            }
+            connection.Close();
+        }
+
+        return tempDialogueList;
     }
 
     private void UpdateProximityObj()
@@ -116,6 +154,11 @@ public class GameHandler: MonoBehaviour
     public void PlaySound(int ID)
     {
         audioHandler.PlaySound(ID);
+    }
+
+    public void PlaySound(AudioClip sound)
+    {
+        audioHandler.PlaySound(sound);
     }
 
     public void InteractButtonPress()
@@ -178,6 +221,11 @@ public class GameHandler: MonoBehaviour
         isInDialogue = true;
     }
 
+    public void CallDialogue(int ID)
+    {
+        CallDialogue(_dialogues[ID].getText(), _dialogueSprites[_dialogues[ID].getSpriteID()]);
+    }
+
     private void DeleteCurrentDialogue()
     {
         dialogueBoxObj.GetComponent<DialogueBox>().DeleteCurrentDialogueBox();
@@ -203,10 +251,10 @@ public class GameHandler: MonoBehaviour
         currentStateID++;
         dogObj.GetComponent<Dog>().currentState++;
         gameObject.GetComponent<LevelLoader>().UpdatLevelObjects(currentStateID,true);
-        nextLevelScreenObj.GetComponent<NewLevelScreen>().LoadScreen(currentStateID, 3);
-                    // TODO : make array to change the lives value depending on story needs ^^^
+        nextLevelScreenObj.GetComponent<NewLevelScreen>().LoadScreen(currentStateID, livesValue);
         isInNextLevelScreen = true;
         playerObj.GetComponent<PlayerController>().canMove = false;
+        PlaySound(_LevelSoundClips[currentStateID]);
     }
 
     public void GameOver()
@@ -242,7 +290,7 @@ public class GameHandler: MonoBehaviour
             {
                 case 1: // Open Door
                 {
-                    if(proximityObj.GetComponent<Interactable>().GetContextID() == 1) CallTransitionScreen(2,2f); // this is for the vent
+                    if(proximityObj.GetComponent<Interactable>().GetContextID() == 1) CallTransitionScreen(10,2f); // this is for the vent
                     else CallTransitionScreen(0,0.5f);
                     if (currentRoomID == 3) LoadNextLevel();
                     else LoadNewRoom(currentRoomID + 1, true);
@@ -254,6 +302,7 @@ public class GameHandler: MonoBehaviour
                         heldObject = proximityObj.GetComponent<Interactable>().GetContextID();
                         playerObj.GetComponent<PlayerController>().HoldingChange(true,proximityObj.GetComponent<Interactable>().heldObjectSprite);
                         proximityObj.GetComponent<Interactable>().DeleteThisObj();
+                        PlaySound(2);
                         // 5 = scissors
                         // 6 = ball
                         // 7 = locker keys
@@ -265,6 +314,7 @@ public class GameHandler: MonoBehaviour
                 {
                     if (heldObject == 1)
                     {
+                        PlaySound(12);
                         RemoveHeldObject();
                         proximityObj.GetComponent<StackOfBoxes>().UseObjectOnIt();
                     } break;
@@ -288,7 +338,7 @@ public class GameHandler: MonoBehaviour
                         RemoveHeldObject();
                         proximityObj.GetComponent<Interactable>().InitiateNewObj(true);
                         proximityObj.GetComponent<Interactable>().DeleteThisObj();
-                        
+                        PlaySound(5);   
                     }
                 }break;
                 case 7: // Start demo cutscene
@@ -302,11 +352,13 @@ public class GameHandler: MonoBehaviour
                 } break;
                 case 9: // Unlock locker locks
                 {
+                    PlaySound(6);
                     RemoveHeldObject();
                     proximityObj.GetComponent<LockerLocks>().UseKeyOnIt();
                 } break;
                 case 10: // unlock door
                 {
+                    PlaySound(1);
                     RemoveHeldObject();
                     proximityObj.GetComponent<Interactable>().InitiateNewObj(true);
                 } break;
@@ -319,6 +371,7 @@ public class GameHandler: MonoBehaviour
                     else
                     {
                         CallDialogue(proximityObj.GetComponent<DuplicatingMachine>().InteractWithIt(heldObject),null);
+                        
                     }
                 } break;
                 case 12: // Switches
@@ -328,6 +381,7 @@ public class GameHandler: MonoBehaviour
                 case 13: // Cut Cage Rope
                 {
                     RemoveHeldObject();
+                    PlaySound(7);
                     proximityObj.GetComponent<CageRope>().CutIt();
                 } break;
             }

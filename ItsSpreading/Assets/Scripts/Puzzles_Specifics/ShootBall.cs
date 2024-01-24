@@ -54,9 +54,11 @@ public class ShootBall : Interactable
                 targetObj.GetComponent<Interactable>().canInteract = true;
                 targetObj.GetComponent<Interactable>().ChangeAction(2, "Take");
                 targetObj.GetComponent<Interactable>().MoveThis();
+                targetObj.GetComponent<AudioSource>().Play();
                 gameObject.SetActive(false);
                 return;
             }
+            targetObj.GetComponent<AudioSource>().Play();
             targetObj.GetComponent<NetAndDoor>().AddBall();
         }
     }

@@ -8,6 +8,7 @@ public class PlayerController : Entity
     
     [SerializeField] private GameObject cameraObj;
     [SerializeField] private GameObject handlerObj;
+    [SerializeField] private AudioSource _audioSource;
     private bool facingRight = true;
     public bool canMove = true;
     public bool isHiding;
@@ -89,6 +90,7 @@ public class PlayerController : Entity
             {
                 MoveThis(movementSpeed);
                 _animator.SetBool("Walking",true);
+                _audioSource.mute = false;
                 setCameraPos();
                 UpdateHeldObjectPOS();
             }
@@ -97,11 +99,18 @@ public class PlayerController : Entity
             {
                 MoveThis(movementSpeed * -1);
                 _animator.SetBool("Walking",true);
+                _audioSource.mute = false;
                 setCameraPos();
                 UpdateHeldObjectPOS();
             }
+
+            else
+            {
+                _animator.SetBool("Walking", false);
+                _audioSource.mute = true;
+            }
+
             
-            else _animator.SetBool("Walking", false);
         }
     }
     private void UpdateInputs()
@@ -118,10 +127,9 @@ public class PlayerController : Entity
             Application.Quit();
         }
         
-        /* Testing 
         if (Input.GetKeyDown(KeyCode.E))
         {
             handlerObj.GetComponent<GameHandler>().LoadNextLevel();
-        }*/
+        }
     }
 }

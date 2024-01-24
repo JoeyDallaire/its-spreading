@@ -65,20 +65,25 @@ public class LevelLoader : MonoBehaviour
             } break;
             case 5:
             {
+
+                dogObj.GetComponent<Dog>().AugmentBuggedLevel();
                 gymLastDoorObj.SetActive(!active);
                 levelObj5.SetActive(active);
             } break;
             case 6:
             {
+                dogObj.GetComponent<SpriteRenderer>().enabled = !active;
                 levelObj6.SetActive(active);
             } break;
             case 7:
             {
+                dogObj.GetComponent<SpriteRenderer>().enabled = !active;
                 gymLastDoorObj.SetActive(!active);
                 levelObj7.SetActive(active);
             } break;
             case 8:
             {
+                dogObj.GetComponent<Dog>().AugmentBuggedLevel();
                 levelObj8.SetActive(active);
             } break;
             case 9:
