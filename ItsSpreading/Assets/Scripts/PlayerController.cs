@@ -111,7 +111,7 @@ public class PlayerController : Entity
             }
 
             
-        }
+        } else _animator.SetBool("Walking", false);
     }
     private void UpdateInputs()
     {

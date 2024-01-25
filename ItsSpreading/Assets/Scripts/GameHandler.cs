@@ -53,11 +53,11 @@ public class GameHandler: MonoBehaviour
     [SerializeField] private Sprite playerFaceSprite;
     [SerializeField] private Sprite dogFaceSprite;
     
-    private List<Sprite> _dialogueSprites = new List<Sprite>(6);
+    
     // datas
     private string dbFilename;
     private List<Dialogue> _dialogues = new List<Dialogue>(60);
-    
+    private List<Sprite> _dialogueSprites = new List<Sprite>(6);
     // Sounds
     [SerializeField] private AudioHandler audioHandler;
     [SerializeField] private AudioClip[] _LevelSoundClips;
@@ -170,12 +170,6 @@ public class GameHandler: MonoBehaviour
     public void InteractButtonPress()
     {
         if(isInTransition) return;
-        if (isInDialogue)
-        {
-            DeleteCurrentDialogue();
-            return;
-        }
-        
         if (isInNextLevelScreen)
         {
             nextLevelScreenObj.GetComponent<NewLevelScreen>().DeleteScreen();
@@ -183,6 +177,13 @@ public class GameHandler: MonoBehaviour
             playerObj.GetComponent<PlayerController>().canMove = true;
             return;
         }
+        if (isInDialogue)
+        {
+            DeleteCurrentDialogue();
+            return;
+        }
+        
+        
         if (isHiding)
         {
             PlaySound(3);
@@ -229,7 +230,10 @@ public class GameHandler: MonoBehaviour
 
     public void CallDialogueByValue(int ID)
     {
-        CallDialogue(_dialogues[ID].getText(), _dialogueSprites[_dialogues[ID].getSpriteID()]);
+        //CallDialogue(_dialogues[ID].getText(), _dialogueSprites[_dialogues[ID].getSpriteID()]);
+        Dialogue tempDiag = _dialogues[ID];
+        Sprite tempSprite = _dialogueSprites[tempDiag.getSpriteID()-1];
+        CallDialogue(tempDiag.getText(), tempSprite);
     }
 
     private void DeleteCurrentDialogue()

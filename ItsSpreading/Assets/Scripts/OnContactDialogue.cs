@@ -26,6 +26,7 @@ public class OnContactDialogue : MonoBehaviour
     private void callDialogue()
     {
         handlerObj.GetComponent<GameHandler>().CallDialogueByValue(dialogueID);
+        Destroy(gameObject);
     }
     
     
