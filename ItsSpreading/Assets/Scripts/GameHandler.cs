@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Data;
+using System.IO;
 using Mono.Data.Sqlite;
 
 public class GameHandler: MonoBehaviour
@@ -37,7 +38,6 @@ public class GameHandler: MonoBehaviour
     public int currentStoryStateID = 1;
     private int livesValue = 3;
     
-    
     // Player related
     private bool isInDialogue = false;
     private bool isInNextLevelScreen = true;
@@ -50,18 +50,24 @@ public class GameHandler: MonoBehaviour
     private float transitionScreenTime = 0;
     private bool isInTransition = false;
 
-    [SerializeField] private Sprite[] _dialogueSprites;
+    [SerializeField] private Sprite playerFaceSprite;
+    [SerializeField] private Sprite dogFaceSprite;
+    
+    private List<Sprite> _dialogueSprites = new List<Sprite>(6);
     // datas
     private string dbFilename;
-    private List<Dialogue> _dialogues;
+    private List<Dialogue> _dialogues = new List<Dialogue>(60);
     
     // Sounds
     [SerializeField] private AudioHandler audioHandler;
     [SerializeField] private AudioClip[] _LevelSoundClips;
     public void Start()
     {
-        dbFilename = "URI=file:dialoguesData.db"; //" + Application.persistentDataPath + "
+        dbFilename = "URI=file:"+ Path.Combine(Application.streamingAssetsPath , "dialoguesData.db"); 
         _dialogues = LoadDialogue();
+        _dialogueSprites = new List<Sprite>();
+        _dialogueSprites.Add(playerFaceSprite);
+        _dialogueSprites.Add(dogFaceSprite);
         LoadNewRoom(currentRoomID, true);
         nextLevelScreenObj.GetComponent<NewLevelScreen>().LoadScreen(currentStateID, 3);
         _uiHandler = gameObject.GetComponent<UIHandler>();
@@ -221,7 +227,7 @@ public class GameHandler: MonoBehaviour
         isInDialogue = true;
     }
 
-    public void CallDialogue(int ID)
+    public void CallDialogueByValue(int ID)
     {
         CallDialogue(_dialogues[ID].getText(), _dialogueSprites[_dialogues[ID].getSpriteID()]);
     }
