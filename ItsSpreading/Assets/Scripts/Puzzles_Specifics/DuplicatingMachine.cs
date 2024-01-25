@@ -7,7 +7,7 @@ public class DuplicatingMachine : Interactable
 {
     [SerializeField] private GameObject expensiveMachine;
     public int money = 1;
-    private int moneyNeeded = 100;
+    private int moneyNeeded = 6;
 
     private void Start()
     {
@@ -15,14 +15,14 @@ public class DuplicatingMachine : Interactable
         expensiveMachine.GetComponent<VendingMachine>().moneyNeeded = moneyNeeded;
     }
 
-    public string InteractWithIt(int objectHeldID)
+    public int InteractWithIt(int objectHeldID)
     {
-        if (objectHeldID != 9) return "You need money to use this.";
+        if (objectHeldID != 9) return 43;
         money *= 2;
         if (money >= moneyNeeded) expensiveMachine.GetComponent<VendingMachine>().canGiveItem = true;
         gameObject.GetComponent<AudioSource>().Play();
-        return ("The machine somehow doubled your money. You now have " + money + "$.");
+        return 32;
 
-       
+
     }
 }

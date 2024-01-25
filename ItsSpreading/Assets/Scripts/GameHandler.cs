@@ -419,11 +419,11 @@ public class GameHandler: MonoBehaviour
                 {
                     if (proximityObj.TryGetComponent<VendingMachine>(out VendingMachine vendingMachine))
                     {
-                        CallDialogue(vendingMachine.InteractWithIt(heldObject),null);
+                        CallDialogueByValue(vendingMachine.InteractWithIt(heldObject));
                     }
                     else
                     {
-                        CallDialogue(proximityObj.GetComponent<DuplicatingMachine>().InteractWithIt(heldObject),null);
+                        CallDialogueByValue(proximityObj.GetComponent<DuplicatingMachine>().InteractWithIt(heldObject));
                         
                     }
                 } break;

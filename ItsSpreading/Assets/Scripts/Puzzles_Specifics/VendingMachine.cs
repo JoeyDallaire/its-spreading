@@ -11,9 +11,9 @@ public class VendingMachine : Interactable
     public bool canGiveItem;
     public int moneyNeeded;
 
-    public String InteractWithIt(int objectHeldID)
+    public int InteractWithIt(int objectHeldID)
     {
-        if (objectHeldID != 9) return "You need money to use this.";
+        if (objectHeldID != 9) return 43;
         if (canGiveItem)
         {
             canInteract = false;
@@ -21,10 +21,10 @@ public class VendingMachine : Interactable
             InitiateNewObj(false);
             keySpriteObj.SetActive(false);
             gameObject.GetComponent<AudioSource>().Play();
-            return "A key comes out of the machine!";
+            return 33;
         }
 
-        return "You need " + moneyNeeded + "$ for this one.";
+        return 43;
     }
 
 }
