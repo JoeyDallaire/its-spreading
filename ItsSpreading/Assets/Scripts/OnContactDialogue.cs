@@ -6,6 +6,7 @@ using UnityEngine;
 public class OnContactDialogue : MonoBehaviour
 {
     [SerializeField] private int dialogueID;
+    [SerializeField] private GameObject switchOtherDialogue;
     
     private GameObject playerObj;
     private GameObject handlerObj;
@@ -26,6 +27,7 @@ public class OnContactDialogue : MonoBehaviour
     private void callDialogue()
     {
         handlerObj.GetComponent<GameHandler>().CallDialogueByValue(dialogueID);
+        if (switchOtherDialogue != null) switchOtherDialogue.SetActive(!switchOtherDialogue.activeInHierarchy);
         Destroy(gameObject);
     }
     

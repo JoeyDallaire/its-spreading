@@ -36,7 +36,7 @@ public class GameHandler: MonoBehaviour
     // Story/Room/State IDs; 0 is used for debugging or for start screen.
     public int currentRoomID = 1;
     public int currentStateID = 1;
-    public int currentStoryStateID = 1;
+    public int currentStoryStateID = 0;
     private int livesValue = 3;
     
     // Player related
@@ -65,6 +65,7 @@ public class GameHandler: MonoBehaviour
     public void Start()
     {
         dbFilename = "URI=file:"+ Path.Combine(Application.streamingAssetsPath , "dialoguesData.db"); 
+        Debug.Log(dbFilename);
         _dialogues = LoadDialogue();
         _dialogueSprites = new List<Sprite>();
         _dialogueSprites.Add(playerFaceSprite);
@@ -72,6 +73,12 @@ public class GameHandler: MonoBehaviour
         LoadNewRoom(currentRoomID, true);
         nextLevelScreenObj.GetComponent<NewLevelScreen>().LoadScreen(currentStateID, 3);
         _uiHandler = gameObject.GetComponent<UIHandler>();
+        int test = 0;
+        foreach (Dialogue diag in _dialogues)
+        {
+            Debug.Log(test + " | " + diag.getText());
+            test++;
+        }
     }
 
     public void Update()
@@ -257,6 +264,7 @@ public class GameHandler: MonoBehaviour
 
     public void LoadNextLevel()
     {
+        currentStoryStateID = 0;
         LoadNewRoom(1, true);
         gameObject.GetComponent<LevelLoader>().UpdatLevelObjects(currentStateID,false);
         currentStateID++;
@@ -294,6 +302,7 @@ public class GameHandler: MonoBehaviour
     private void InteractWithObj()
     {
         int checkObjectNeeded = proximityObj.GetComponent<Interactable>().GetObjectNeededID();
+        int errorDialogueID = proximityObj.GetComponent<Interactable>().errorDialogue;
 
         if (checkObjectNeeded == 0 || checkObjectNeeded == heldObject)
         {
@@ -301,7 +310,11 @@ public class GameHandler: MonoBehaviour
             {
                 case 1: // Open Door
                 {
-                    if(proximityObj.GetComponent<Interactable>().GetContextID() == 1) CallTransitionScreen(10,2f); // this is for the vent
+                    if(proximityObj.GetComponent<Interactable>().GetContextID() == 1)
+                    {
+                        CallTransitionScreen(10,2f); // this is for the vent
+                        proximityObj.GetComponent<AudioSource>().Play();
+                    }
                     else CallTransitionScreen(0,0.5f);
                     if (currentRoomID == 3) LoadNextLevel();
                     else LoadNewRoom(currentRoomID + 1, true);
@@ -310,7 +323,35 @@ public class GameHandler: MonoBehaviour
                 {
                     if (heldObject == 0)
                     {
-                        heldObject = proximityObj.GetComponent<Interactable>().GetContextID();
+                        int newObject = proximityObj.GetComponent<Interactable>().GetContextID();
+                        if (newObject == 7)
+                        {
+                            switch (currentStoryStateID)
+                            {
+                                case 0:
+                                {
+                                    CallDialogueByValue(14);
+                                    currentStoryStateID++;
+                                }
+                                    break;
+                                case 1:
+                                {
+                                    CallDialogueByValue(15);
+                                    currentStoryStateID++;
+                                }
+                                    break;
+                                case 2:
+                                {
+                                    CallDialogueByValue(16);
+                                    currentStoryStateID = 0;
+                                }
+                                    break;
+
+                            }
+                            
+                        } // Locker key dialogue controls
+                        if(newObject == 2 && currentStoryStateID == 0) CallDialogueByValue(20); // take ball dialogue
+                        heldObject = newObject;
                         playerObj.GetComponent<PlayerController>().HoldingChange(true,proximityObj.GetComponent<Interactable>().heldObjectSprite);
                         proximityObj.GetComponent<Interactable>().DeleteThisObj();
                         PlaySound(2);
@@ -398,5 +439,6 @@ public class GameHandler: MonoBehaviour
                 } break;
             }
         }
+        else if(errorDialogueID >= 0)CallDialogueByValue(errorDialogueID);
     }
 }

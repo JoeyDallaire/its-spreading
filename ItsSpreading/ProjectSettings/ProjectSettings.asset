@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: Sleepy Racoon
+  companyName: Sleepy Racoons
   productName: Genereric School Skipping Adventure
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}

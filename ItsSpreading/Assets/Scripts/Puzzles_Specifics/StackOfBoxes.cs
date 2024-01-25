@@ -9,6 +9,8 @@ public class StackOfBoxes : Interactable
     [SerializeField] private GameObject box3Obj;
 
     [SerializeField] private GameObject fullStackObj;
+
+    [SerializeField] private GameObject handlerObj;
     
     private int nbOfBoxes = 0;
 
@@ -22,8 +24,10 @@ public class StackOfBoxes : Interactable
 
         if (nbOfBoxes == 3)
         {
+            
             fullStackObj.SetActive(true);
             canInteract = false;
+            handlerObj.GetComponent<GameHandler>().CallDialogueByValue(9);
         }
     }
 }

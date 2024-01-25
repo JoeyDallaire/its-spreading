@@ -12,6 +12,7 @@ public class Interactable : MonoBehaviour
     public Color defaultColor = Color.white;
     
     public bool canInteract = true;
+    public int errorDialogue = -1;
 
     [SerializeField] private Vector3 posToMove; 
     
@@ -106,7 +107,7 @@ public class Interactable : MonoBehaviour
         actionID = newActionID;
         actionName = newActionName;
     }
-
+    
     public void InitiateNewObj(bool deleteThis)
     {
         objectToInitiate.SetActive(true);
