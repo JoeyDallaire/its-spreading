@@ -10,6 +10,7 @@ public class ScissorsCutscene : MonoBehaviour
     [SerializeField] private Sprite scissorsSprite;
     [SerializeField] private int lenght;
     [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private GameObject playerObj;
 
     [SerializeField] private Vector3 scissorsScale;
     [SerializeField] private Vector3 glitchScale;
@@ -21,6 +22,7 @@ public class ScissorsCutscene : MonoBehaviour
     {
         _spriteRenderer.sprite = glitchedSprite;
         transform.localScale = glitchScale;
+        playerObj.GetComponent<PlayerController>().StopAll();
     }
 
     private void Update()

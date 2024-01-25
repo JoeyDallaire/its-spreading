@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 using System.Data;
 using System.IO;
 using Mono.Data.Sqlite;
+using Object = System.Object;
 
 public class GameHandler: MonoBehaviour
 {
@@ -224,7 +225,7 @@ public class GameHandler: MonoBehaviour
     public void CallDialogue(string text, Sprite faceImg)
     {
         dialogueBoxObj.GetComponent<DialogueBox>().callDialogueBox(text,faceImg);
-        playerObj.GetComponent<PlayerController>().canMove = false;
+        playerObj.GetComponent<PlayerController>().StopAll();
         isInDialogue = true;
     }
 
@@ -338,6 +339,7 @@ public class GameHandler: MonoBehaviour
                 case 5: // Hide
                 {
                     playerObj.GetComponent<PlayerController>().HidePlayer(true);
+                    playerObj.GetComponent<PlayerController>().StopAll();
                     PlaySound(3);
                     isHiding = true;
                 } break;

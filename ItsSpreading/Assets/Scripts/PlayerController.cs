@@ -113,6 +113,15 @@ public class PlayerController : Entity
             
         } else _animator.SetBool("Walking", false);
     }
+
+    public void StopAll()
+    {
+        _animator.SetBool("Walking", false);
+        _audioSource.Stop();
+        _audioSource.mute = true;
+        _audioSource.Play();
+        canMove = false;
+    }
     private void UpdateInputs()
     {
         
