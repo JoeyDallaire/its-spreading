@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SwitchController : Interactable
 {
+    [SerializeField] private GameObject dialogueToTurnOff;
     [SerializeField] private bool state;
     [SerializeField] private SpriteRenderer _spriteRenderer;
 
@@ -74,6 +75,7 @@ public class SwitchController : Interactable
             otherSwitch2.GetComponent<SwitchController>().canInteract = false;
             canInteract = false;
             doorLockedObj.SetActive(true);
+            if(dialogueToTurnOff != null) Destroy(dialogueToTurnOff);
         }
     }
     

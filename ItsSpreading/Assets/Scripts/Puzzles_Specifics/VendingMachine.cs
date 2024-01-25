@@ -21,10 +21,10 @@ public class VendingMachine : Interactable
             InitiateNewObj(false);
             keySpriteObj.SetActive(false);
             gameObject.GetComponent<AudioSource>().Play();
-            return 33;
+            return 34;
         }
 
-        return 43;
+        return 40;
     }
 
 }

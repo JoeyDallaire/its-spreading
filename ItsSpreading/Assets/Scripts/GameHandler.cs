@@ -51,22 +51,22 @@ public class GameHandler: MonoBehaviour
     private float transitionScreenTime = 0;
     private bool isInTransition = false;
 
+    [SerializeField] private Sprite dullerTexture;
+
     [SerializeField] private Sprite playerFaceSprite;
     [SerializeField] private Sprite dogFaceSprite;
     
     
     // datas
-    private string dbFilename;
     private List<Dialogue> _dialogues = new List<Dialogue>(60);
     private List<Sprite> _dialogueSprites = new List<Sprite>(6);
+    private DialogueLines _dialogue_loader = new DialogueLines();
     // Sounds
     [SerializeField] private AudioHandler audioHandler;
     [SerializeField] private AudioClip[] _LevelSoundClips;
     public void Start()
     {
-        dbFilename = "URI=file:"+ Path.Combine(Application.streamingAssetsPath , "dialoguesData.db"); 
-        Debug.Log(dbFilename);
-        _dialogues = LoadDialogue();
+        _dialogues = _dialogue_loader.getLinesList();
         _dialogueSprites = new List<Sprite>();
         _dialogueSprites.Add(playerFaceSprite);
         _dialogueSprites.Add(dogFaceSprite);
@@ -98,33 +98,6 @@ public class GameHandler: MonoBehaviour
         }
         
         cameraObj.GetComponent<CameraControl>().UpdateMaxPos(newMaxLeftPos + 10f, newMaxRightPos-9.5f);
-    }
-
-    private List<Dialogue> LoadDialogue()
-    {
-        List<Dialogue> tempDialogueList = new List<Dialogue>();
-        using (var connection = new SqliteConnection(dbFilename))
-        {
-            connection.Open();
-            using (var command = connection.CreateCommand())
-            {
-                //command.CommandText = "CREATE TABLE IF NOT EXISTS dialogues (text VARCHAR(200), spriteid INT)";
-                //command.ExecuteNonQuery();
-                command.CommandText = "SELECT * FROM dialogues;";
-
-                using (IDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        tempDialogueList.Add(new Dialogue(reader["text"].ToString(), (int)reader["spriteid"]));
-                    }
-                    reader.Close();
-                }
-            }
-            connection.Close();
-        }
-
-        return tempDialogueList;
     }
 
     private void UpdateProximityObj()
@@ -310,6 +283,7 @@ public class GameHandler: MonoBehaviour
             {
                 case 1: // Open Door
                 {
+                    if(proximityObj.GetComponent<Interactable>().GetContextID() == 3) proximityObj.GetComponent<Interactable>().InitiateNewObj(false);
                     if(proximityObj.GetComponent<Interactable>().GetContextID() == 1)
                     {
                         CallTransitionScreen(10,2f); // this is for the vent

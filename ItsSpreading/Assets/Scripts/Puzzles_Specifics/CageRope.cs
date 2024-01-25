@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class CageRope : Interactable
 {
-    
-    
+
+    [SerializeField] private GameObject handlerObj;
     [SerializeField] private GameObject cageObj;
     [SerializeField] private GameObject finalCagePosTag;
     [SerializeField] private GameObject dogObj;
@@ -36,6 +36,7 @@ public class CageRope : Interactable
                     dogObj.GetComponent<Dog>().exists = false;
                     glitchedDoor.SetActive(true);
                     gameObject.SetActive(false);
+                    handlerObj.GetComponent<GameHandler>().CallDialogueByValue(43);
                 }
             }
         }

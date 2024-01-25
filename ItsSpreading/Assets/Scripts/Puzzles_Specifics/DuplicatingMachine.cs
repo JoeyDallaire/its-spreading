@@ -17,11 +17,11 @@ public class DuplicatingMachine : Interactable
 
     public int InteractWithIt(int objectHeldID)
     {
-        if (objectHeldID != 9) return 43;
+        if (objectHeldID != 9) return 40;
         money *= 2;
         if (money >= moneyNeeded) expensiveMachine.GetComponent<VendingMachine>().canGiveItem = true;
         gameObject.GetComponent<AudioSource>().Play();
-        return 32;
+        return 33;
 
 
     }

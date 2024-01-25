@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class NetAndDoor : MonoBehaviour
 {
+    [SerializeField] private GameObject handlerObj;
     private int nbOfBalls = 0;
     [SerializeField] private Sprite ballSprite1;
     [SerializeField] private Sprite ballSprite2;
@@ -31,6 +32,7 @@ public class NetAndDoor : MonoBehaviour
 
     private void ActivateDoor()
     {
+        handlerObj.GetComponent<GameHandler>().CallDialogueByValue(22);
         doorObj.SetActive(true);
     }
 
