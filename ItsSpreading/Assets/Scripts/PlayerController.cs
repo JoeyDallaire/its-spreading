@@ -86,7 +86,7 @@ public class PlayerController : Entity
     {
         if (canMove)
         {
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
                 MoveThis(movementSpeed);
                 _animator.SetBool("Walking",true);
@@ -95,7 +95,7 @@ public class PlayerController : Entity
                 UpdateHeldObjectPOS();
             }
                     
-            else if (Input.GetKey(KeyCode.A))
+            else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
                 MoveThis(movementSpeed * -1);
                 _animator.SetBool("Walking",true);

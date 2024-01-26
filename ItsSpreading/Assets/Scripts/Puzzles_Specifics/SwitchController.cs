@@ -30,6 +30,7 @@ public class SwitchController : Interactable
         UpdateStateAndWall();
         UpdateSpriteColor();
         CheckIfRight();
+        gameObject.GetComponent<AudioSource>().Play();
     }
 
     private void UpdateStateAndWall()
