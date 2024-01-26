@@ -42,7 +42,7 @@ public class DialogueLines
         _dialogues.Add(new Dialogue( "Another lock? This is pushing it. I need to find the key. " ,1));//30
         _dialogues.Add(new Dialogue( "A dollar bill. Mh. I'll hold on to it, why not. " ,1));//31
         _dialogues.Add(new Dialogue( "I'm honestly kind of getting hungry, why not use this money for something useful." ,1));//32
-        _dialogues.Add(new Dialogue( "What the hell... More money?!" ,1));//33
+        _dialogues.Add(new Dialogue( "What the hell... More money?! It doubled it!" ,1));//33
         _dialogues.Add(new Dialogue( "Managed to get this damn key. Now let's get out... I hope." ,1));//34
         _dialogues.Add(new Dialogue( "Something is off. I don't feel good about this. " ,2));//35
         _dialogues.Add(new Dialogue( "What the fuck IS this?! Tsuki is that you?! It can't be, it can't be." ,3));//36

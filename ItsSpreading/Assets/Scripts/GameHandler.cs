@@ -25,6 +25,7 @@ public class GameHandler: MonoBehaviour
     [SerializeField] private GameObject playerObj;
     [SerializeField] private GameObject cameraObj;
     [SerializeField] private GameObject dogObj;
+    [SerializeField] private GameObject cageControllerObj;
     [SerializeField] private GameObject nextLevelScreenObj;
     [SerializeField] private GameObject proximityObj;
     private GameObject lastProximityObj;
@@ -260,6 +261,8 @@ public class GameHandler: MonoBehaviour
         isInNextLevelScreen = true;
         dogObj.GetComponent<Dog>().ResetValuesAtGameOver();
         playerObj.GetComponent<PlayerController>().canMove = false;
+        audioHandler.PlaySound(11);
+        if (currentStateID == 12) cageControllerObj.GetComponent<CageRope>().ResetCage();
     }
 
     public void RemoveHeldObject()

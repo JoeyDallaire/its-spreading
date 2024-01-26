@@ -29,6 +29,9 @@ TextureImporter:
   - first:
       213: -639270006868804546
     second: Textes_In_wall_Of_Death_8
+  - first:
+      213: -5355308404361070469
+    second: Textes_In_wall_Of_Death_9
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -118,9 +121,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 2079
-        width: 1530
-        height: 309
+        y: 1950
+        width: 1668
+        height: 438
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -223,9 +226,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 38
-        y: 266
-        width: 1031
-        height: 197
+        y: 262
+        width: 1025
+        height: 201
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -253,7 +256,7 @@ TextureImporter:
         width: 678
         height: 181
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -274,7 +277,7 @@ TextureImporter:
         width: 878
         height: 175
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -292,10 +295,10 @@ TextureImporter:
         serializedVersion: 2
         x: 907
         y: 0
-        width: 761
+        width: 370
         height: 134
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -303,6 +306,27 @@ TextureImporter:
       bones: []
       spriteID: e3cf505d05bd027f0800000000000000
       internalID: -639270006868804546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Textes_In_wall_Of_Death_9
+      rect:
+        serializedVersion: 2
+        x: 1307
+        y: 0
+        width: 361
+        height: 113
+      alignment: 9
+      pivot: {x: 0.5, y: 0.52275085}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b78f46f316f1ea5b0800000000000000
+      internalID: -5355308404361070469
       vertices: []
       indices: 
       edges: []

@@ -13,7 +13,7 @@ public class VendingMachine : Interactable
 
     public int InteractWithIt(int objectHeldID)
     {
-        if (objectHeldID != 9) return 43;
+        if (objectHeldID != 9) return 40;
         if (canGiveItem)
         {
             canInteract = false;

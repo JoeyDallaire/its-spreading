@@ -89,11 +89,11 @@ public class Interactable : MonoBehaviour
         if(!hasSprite) return;
         if (highlighted)
         {
-            objectSprite.color = highlightColor;
+            //objectSprite.color = highlightColor;
             return;
         }
 
-        objectSprite.color = defaultColor;
+        //objectSprite.color = defaultColor;
     }
 
     public void MoveThis()

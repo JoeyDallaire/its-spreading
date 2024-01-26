@@ -15,6 +15,12 @@ public class CageRope : Interactable
     private bool isCut = false;
     private bool isCageDown = false;
     private float dropSpeed = 0.3f;
+    private Vector3 startPos;
+
+    private void Start()
+    {
+        startPos = cageObj.transform.position;
+    }
     
     public void CutIt()
     {
@@ -40,5 +46,13 @@ public class CageRope : Interactable
                 }
             }
         }
+    }
+
+    public void ResetCage()
+    {
+        cageObj.transform.position = startPos;
+        isCut = false;
+        isCageDown = false;
+        glitchedDoor.GetComponent<SpriteRenderer>().enabled = true;
     }
 }

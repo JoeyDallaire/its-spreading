@@ -136,9 +136,9 @@ public class PlayerController : Entity
             Application.Quit();
         }
         
-        if (Input.GetKeyDown(KeyCode.E))
+        /*if (Input.GetKeyDown(KeyCode.E))
         {
             handlerObj.GetComponent<GameHandler>().LoadNextLevel();
-        }
+        }*/
     }
 }
