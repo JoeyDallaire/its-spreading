@@ -14,6 +14,7 @@ public class LevelLoader : MonoBehaviour
     [SerializeField] private GameObject dogObj;
     [SerializeField] private GameObject gymLastDoorSprite;
     [SerializeField] private GameObject stuffDeletelvl12;
+    [SerializeField] private GameObject scissorObj;
     
     [Header("Level Folders")]
     
@@ -103,6 +104,7 @@ public class LevelLoader : MonoBehaviour
                 dogObj.GetComponent<Dog>().ResetValuesAtGameOver();
                 gymLastDoorObj.SetActive(!active);
                 lockObj.SetActive(!active);
+                scissorObj.SetActive(active);
                 levelObj11.SetActive(active);
             } break;
             case 12:

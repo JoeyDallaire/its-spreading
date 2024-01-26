@@ -1,0 +1,446 @@
+fileFormatVersion: 2
+guid: 4da4901a2f915b64891fe4dc89c96881
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8098426016679682413
+    second: Textes_In_Game_0
+  - first:
+      213: -181196508432190845
+    second: Textes_In_Game_1
+  - first:
+      213: -8134596795676454585
+    second: Textes_In_Game_2
+  - first:
+      213: -2872582912174230579
+    second: Textes_In_Game_3
+  - first:
+      213: 8975909168312157644
+    second: Textes_In_Game_4
+  - first:
+      213: 96289371427404047
+    second: Textes_In_Game_5
+  - first:
+      213: 8115411478681933311
+    second: Textes_In_Game_6
+  - first:
+      213: 8106298364024958802
+    second: Textes_In_Game_7
+  - first:
+      213: -7508011275288903466
+    second: Textes_In_Game_8
+  - first:
+      213: 5233508964506562713
+    second: Textes_In_Game_9
+  - first:
+      213: 4036757305409306168
+    second: Textes_In_Game_10
+  - first:
+      213: 4952748534039122256
+    second: Textes_In_Game_11
+  - first:
+      213: -1701765643959751979
+    second: Textes_In_Game_12
+  - first:
+      213: 8557596657242084953
+    second: Textes_In_Game_13
+  - first:
+      213: -6867576968288003110
+    second: Textes_In_Game_14
+  - first:
+      213: -4113795203665661698
+    second: Textes_In_Game_15
+  - first:
+      213: 3337998657233992006
+    second: Textes_In_Game_16
+  - first:
+      213: -3425333767568015518
+    second: Textes_In_Game_17
+  - first:
+      213: 5453214940387360490
+    second: Textes_In_Game_18
+  - first:
+      213: 2553087502419885730
+    second: Textes_In_Game_19
+  - first:
+      213: -367727250807282765
+    second: Textes_In_Game_20
+  - first:
+      213: -9085901943505617473
+    second: Textes_In_Game_21
+  - first:
+      213: -7056532930243221345
+    second: Textes_In_Game_22
+  - first:
+      213: -7192896214049955896
+    second: Textes_In_Game_23
+  - first:
+      213: 2243062275866615086
+    second: Textes_In_Game_24
+  - first:
+      213: 743502520634040398
+    second: Textes_In_Game_25
+  - first:
+      213: 3054721134290689054
+    second: Textes_In_Game_26
+  - first:
+      213: -3239719752613897373
+    second: Textes_In_Game_27
+  - first:
+      213: 2343304639609438286
+    second: Textes_In_Game_28
+  - first:
+      213: -9200126858095153897
+    second: Textes_In_Game_29
+  - first:
+      213: 2194007296261416062
+    second: Textes_In_Game_30
+  - first:
+      213: -3865052821303451050
+    second: Textes_In_Game_31
+  - first:
+      213: 6880686184493442827
+    second: Textes_In_Game_32
+  - first:
+      213: -8111343016661503807
+    second: Textes_In_Game_33
+  - first:
+      213: -5969089594201180053
+    second: Textes_In_Game_34
+  - first:
+      213: 290675623889127313
+    second: Textes_In_Game_35
+  - first:
+      213: 386681532082843221
+    second: Textes_In_Game_36
+  - first:
+      213: 1738516532615589504
+    second: Textes_In_Game_37
+  - first:
+      213: 5427033591350478743
+    second: Textes_In_Game_38
+  - first:
+      213: 4969589157750305633
+    second: Textes_In_Game_39
+  - first:
+      213: -2374454378156599105
+    second: Textes_In_Game_40
+  - first:
+      213: -8916897265438701002
+    second: Textes_In_Game_41
+  - first:
+      213: -597394904151315273
+    second: Textes_In_Game_42
+  - first:
+      213: -4040916199788054337
+    second: Textes_In_Game_43
+  - first:
+      213: 1632313167176067680
+    second: Textes_In_Game_44
+  - first:
+      213: -6565682377166511580
+    second: Textes_In_Game_45
+  - first:
+      213: -7334690155930899818
+    second: Textes_In_Game_46
+  - first:
+      213: -1949151711615534466
+    second: Textes_In_Game_47
+  - first:
+      213: 1628754736355320717
+    second: Textes_In_Game_48
+  - first:
+      213: 7399547554904156911
+    second: Textes_In_Game_49
+  - first:
+      213: -1281532942461338677
+    second: Textes_In_Game_50
+  - first:
+      213: -7715245530141448758
+    second: Textes_In_Game_51
+  - first:
+      213: 1393771456904873833
+    second: Textes_In_Game_52
+  - first:
+      213: -3877992035911303555
+    second: Textes_In_Game_53
+  - first:
+      213: 3042002511695940946
+    second: Textes_In_Game_54
+  - first:
+      213: -316253566716049753
+    second: Textes_In_Game_55
+  - first:
+      213: -6640412847877068233
+    second: Textes_In_Game_56
+  - first:
+      213: 4766184186665794977
+    second: Textes_In_Game_57
+  - first:
+      213: 5038342486191441477
+    second: Textes_In_Game_58
+  - first:
+      213: 1996930403727116736
+    second: Textes_In_Game_59
+  - first:
+      213: -1555717681847875670
+    second: Textes_In_Game_60
+  - first:
+      213: 7808128882044990028
+    second: Textes_In_Game_61
+  - first:
+      213: 3739872927162436989
+    second: Textes_In_Game_62
+  - first:
+      213: 7388514712450784070
+    second: Textes_In_Game_63
+  - first:
+      213: 2613659582093324118
+    second: Textes_In_Game_64
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Textes_In_Game_1
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 1769
+        width: 995
+        height: 483
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 382bb505cb24c7df0800000000000000
+      internalID: -181196508432190845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Textes_In_Game_29
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 932
+        width: 1002
+        height: 229
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71d25beed55925080800000000000000
+      internalID: -9200126858095153897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Textes_In_Game_38
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 646
+        width: 1087
+        height: 272
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 797ce843c42b05b40800000000000000
+      internalID: 5427033591350478743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Textes_In_Game_50
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 434
+        width: 1130
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcb71a42494173ee0800000000000000
+      internalID: -1281532942461338677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Textes_In_Game_57
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 272
+        width: 759
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ad7c44f343e42240800000000000000
+      internalID: 4766184186665794977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Textes_In_Game_64
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 25
+        width: 1194
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65fe77aca85954420800000000000000
+      internalID: 2613659582093324118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Textes_In_Game_0
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 1165
+        width: 1160
+        height: 601
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39e9604f17c9c9f80800000000000000
+      internalID: -8098426016679682413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

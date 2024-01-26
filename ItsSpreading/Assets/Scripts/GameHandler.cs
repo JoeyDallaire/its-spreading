@@ -51,15 +51,17 @@ public class GameHandler: MonoBehaviour
     private float transitionScreenTime = 0;
     private bool isInTransition = false;
 
-    [SerializeField] private Sprite dullerTexture;
+    [SerializeField] private GameObject dullTexture;
+    [SerializeField] private GameObject dullerTexture;
 
     [SerializeField] private Sprite playerFaceSprite;
     [SerializeField] private Sprite dogFaceSprite;
+    [SerializeField] private Sprite[] faceSprites;
     
     
     // datas
     private List<Dialogue> _dialogues = new List<Dialogue>(60);
-    private List<Sprite> _dialogueSprites = new List<Sprite>(6);
+    //private List<Sprite> _dialogueSprites = new List<Sprite>(6);
     private DialogueLines _dialogue_loader = new DialogueLines();
     // Sounds
     [SerializeField] private AudioHandler audioHandler;
@@ -67,18 +69,12 @@ public class GameHandler: MonoBehaviour
     public void Start()
     {
         _dialogues = _dialogue_loader.getLinesList();
-        _dialogueSprites = new List<Sprite>();
-        _dialogueSprites.Add(playerFaceSprite);
-        _dialogueSprites.Add(dogFaceSprite);
+        // = new List<Sprite>();
+        //_dialogueSprites.Add(playerFaceSprite);
+        //_dialogueSprites.Add(dogFaceSprite);
         LoadNewRoom(currentRoomID, true);
         nextLevelScreenObj.GetComponent<NewLevelScreen>().LoadScreen(currentStateID, 3);
         _uiHandler = gameObject.GetComponent<UIHandler>();
-        int test = 0;
-        foreach (Dialogue diag in _dialogues)
-        {
-            Debug.Log(test + " | " + diag.getText());
-            test++;
-        }
     }
 
     public void Update()
@@ -213,7 +209,7 @@ public class GameHandler: MonoBehaviour
     {
         //CallDialogue(_dialogues[ID].getText(), _dialogueSprites[_dialogues[ID].getSpriteID()]);
         Dialogue tempDiag = _dialogues[ID];
-        Sprite tempSprite = _dialogueSprites[tempDiag.getSpriteID()-1];
+        Sprite tempSprite = faceSprites[tempDiag.getSpriteID()];
         CallDialogue(tempDiag.getText(), tempSprite);
     }
 
@@ -241,6 +237,11 @@ public class GameHandler: MonoBehaviour
         LoadNewRoom(1, true);
         gameObject.GetComponent<LevelLoader>().UpdatLevelObjects(currentStateID,false);
         currentStateID++;
+        if (currentStateID == 8)
+        {
+            dullTexture.SetActive(false);
+            dullerTexture.SetActive(true);
+        }
         dogObj.GetComponent<Dog>().currentState++;
         gameObject.GetComponent<LevelLoader>().UpdatLevelObjects(currentStateID,true);
         nextLevelScreenObj.GetComponent<NewLevelScreen>().LoadScreen(currentStateID, livesValue);

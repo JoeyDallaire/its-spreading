@@ -150,9 +150,9 @@ public class Dog : MonoBehaviour
     private float GetDogChaseSpeed()
     {
         if (currentState == 9) return HOSTILE_SPEED_VALUE;
-        if (currentState == 10) return HOSTILE_SPEED_VALUE * 1.1f;
-        if (currentState == 11) return HOSTILE_SPEED_VALUE * 1.3f;
-        return HOSTILE_SPEED_VALUE * 1.5f;
+        if (currentState == 10) return HOSTILE_SPEED_VALUE * 1.5f;
+        if (currentState == 11) return HOSTILE_SPEED_VALUE * 1.9f;
+        return HOSTILE_SPEED_VALUE * 2.05f;
     }
 
     public void AugmentBuggedLevel()
